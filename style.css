@@ -1,0 +1,379 @@
+.btn {
+    background-color: #0166B1;
+    color: white;
+}
+
+.btn-danger {
+    background-color: red;
+}
+
+#webshop {
+    background-image: url('images/webshop.png');
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    color: white;
+    border: white 2px solid;
+    min-height: 350px;
+}
+
+#aboutus {
+    background-image: url('images/aboutus.png');
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    color: white;
+    border: white 2px solid;
+    min-height: 350px;
+}
+
+#garage {
+    background-image: url('images/garage.png');
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    color: white;
+    border: white 2px solid;
+    min-height: 350px;
+}
+
+#club {
+    background-image: url('images/club.png');
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    color: white;
+    border: white 2px solid;
+    min-height: 350px;
+}
+
+#newest {
+    background-image: url('images/newest.png');
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    color: white;
+    border: white 2px solid;
+    min-height: 350px;
+}
+
+#delivery {
+    background-image: url('images/delivery.png');
+    background-size: cover;
+    background-position: center;
+    text-decoration: none;
+    color: white;
+    border: white 2px solid;
+    min-height: 350px;
+}
+
+.card-content {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 20px;
+}
+
+.card-small .card-content {
+    padding: 20px;
+}
+
+.footer {
+    background-color: #0166B1;
+    color: white;
+    padding: 20px 0;
+}
+
+.footer-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 10px;
+}
+
+.footer-section h3 {
+    border-bottom: 2px solid white;
+    padding-bottom: 0px;
+}
+
+.footer-section p {
+    margin: 5px 0;
+}
+
+.footer-section a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.newsletter {
+    background-color: #0166B1;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.newsletter h3 {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.newsletter p {
+    color: white;
+    margin-bottom: 20px;
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.newsletter-form input[type="email"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.newsletter-form button {
+    padding: 10px 20px;
+    background-color: #ECF0F1;
+    color: #34495E;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.newsletter-form button:hover {
+    background-color: #BDC3C7;
+}
+
+.smalllogo {
+    padding-right: 5px;
+}
+
+.form-group {
+    margin-bottom: 5px;
+}
+
+.form-check {
+    margin-bottom: 0.5px;
+}
+
+.form-control {
+    width: 300px;
+}
+
+.form-group.row label {
+    text-align: right;
+}
+
+.form-group.row .col-form-label {
+    padding-right: 5px;
+}
+
+.form-group.row .form-control,
+.form-group.row .form-check-input {
+    padding-left: 5px;
+}
+
+.form-group.row .form-check-label {
+    margin-left: 5px;
+}
+
+.garage_button {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.garage_h1,
+.delivery_h1,
+.club_h1,
+.aboutus_h1,
+.newest_h1,
+.login_h1,
+.registration_h1 {
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.card-image {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+}
+
+#aboutus_cards {
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#aboutus_img1,
+#aboutus_img2,
+#aboutus_img3 {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+#aboutus_card1 {
+    margin: 2px;
+    margin-right: 25px;
+    width: 300px;
+    border: rgba(0, 0, 0, 0.5) 2px solid;
+}
+
+#aboutus_card2 {
+
+    margin: 2px;
+    margin-right: 25px;
+    width: 300px;
+    border: rgba(0, 0, 0, 0.5) 2px solid;
+}
+
+#aboutus_card3 {
+    margin: 2px;
+    margin-right: 25px;
+    width: 300px;
+    border: rgba(0, 0, 0, 0.5) 2px solid;
+}
+
+#club_table {
+    width: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    border: rgba(0, 0, 0, 0.5) 2px solid;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#club_videos {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+#newest_button {
+    text-align: center;
+}
+
+#login {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    border: 0;
+
+}
+
+#email,
+#password {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#registration,
+#login {
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+#popupbutton_club {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#popupwindow_club {
+    background-color: #fff;
+    width: 23%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: rgba(0, 0, 0, 0.5) 2px solid;
+    border-radius: 10px;
+    min-width: min-content;
+
+}
+
+#join_club {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 300px;
+    padding-bottom: 15px;
+
+}
+
+#joinbutton_club {
+    width: 300px;
+    height: 60px;
+    font-size: large;
+}
+
+#close_club,
+#pay_club {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#close_club {
+    float: right;
+}
+
+#pay_club {
+    float: left;
+}
+
+.scrolling-wrapper {
+    display: flex;
+    overflow-x: auto;
+    padding: 5px;
+    white-space: nowrap;
+}
+
+.scrolling-wrapper .select-container {
+    margin-right: 20px;
+    display: inline-block;
+    width: 255px;
+    text-align: center;
+    border: 2px rgba(0, 0, 0, 0.5) solid;
+}
+
+.scrolling-wrapper .form-select {
+    width: 100%;
+    height: 300px;
+}
+
+#select1 {
+    width: 250px;
+}
+
+.text-center {
+    text-align: center;
+    padding-bottom: 20px;
+}
