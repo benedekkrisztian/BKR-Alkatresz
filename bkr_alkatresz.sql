@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2024. Okt 22. 19:26
+-- Létrehozás ideje: 2024. Okt 28. 10:26
 -- Kiszolgáló verziója: 10.4.32-MariaDB
 -- PHP verzió: 8.2.12
 
@@ -82,7 +82,8 @@ CREATE TABLE `rendeles` (
   `r_hazszam` varchar(5) NOT NULL,
   `r_iranyitoszam` int(4) NOT NULL,
   `r_telefonszam` int(11) NOT NULL,
-  `r_alkatreszszam` int(10) NOT NULL
+  `r_alkatreszszam` int(10) NOT NULL,
+  `r_rendelesdatum` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci;
 
 -- --------------------------------------------------------
