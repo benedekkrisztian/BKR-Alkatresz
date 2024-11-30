@@ -8,6 +8,14 @@ document.getElementById("close_club").addEventListener("click", function () {
 
 document.getElementById("club_videos").style.display = "none";
 
+document.getElementById('joinbutton_club').onclick = function() {
+    document.getElementById('popupbutton_club').style.display = 'flex';
+};
+
+document.getElementById('close_club').onclick = function() {
+    document.getElementById('popupbutton_club').style.display = 'none';
+};
+
 const joinButton = document.getElementById("joinbutton_club");
 const popupWindow = document.getElementById("popupwindow_club");
 const closeButton = document.getElementById("close_club");
