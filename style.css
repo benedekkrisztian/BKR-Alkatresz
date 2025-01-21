@@ -214,6 +214,7 @@
 .login_h1 {
     text-align: center;
     padding-bottom: 5px;
+    color: #333;
 }
 
 .card-image {
@@ -404,7 +405,6 @@
     text-align: center;
     margin-bottom: 20px;
     font-size: 2.5rem;
-    color: #333;
 }
 
 .card {
@@ -456,13 +456,12 @@
     margin-top: 20px;
     font-size: 2.5rem;
     font-weight: bold;
-    color: #2c3e50;
 }
 
 h4 {
     text-align: center;
     margin-top: 10px;
-    color: #34495e;
+    color: #333;
     font-size: 1.5rem;
 }
 
