@@ -8,11 +8,11 @@ document.getElementById("close_club").addEventListener("click", function () {
 
 document.getElementById("club_videos").style.display = "none";
 
-document.getElementById('joinbutton_club').onclick = function() {
+document.getElementById('joinbutton_club').onclick = function () {
     document.getElementById('popupbutton_club').style.display = 'flex';
 };
 
-document.getElementById('close_club').onclick = function() {
+document.getElementById('close_club').onclick = function () {
     document.getElementById('popupbutton_club').style.display = 'none';
 };
 

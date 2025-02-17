@@ -1,3 +1,7 @@
+main {
+    border-top: 2px solid #0166B1;
+}
+
 .btn {
     background-color: #0166B1;
     color: white;
@@ -7,64 +11,42 @@
     background-color: red;
 }
 
-#webshop {
-    background-image: url('images/webshop.png');
+#webshop,
+#aboutus,
+#garage,
+#club,
+#newest,
+#delivery {
     background-size: cover;
     background-position: center;
     text-decoration: none;
     color: white;
     border: white 2px solid;
     min-height: 350px;
+}
+
+#webshop {
+    background-image: url('images/webshop.png');
 }
 
 #aboutus {
     background-image: url('images/aboutus.png');
-    background-size: cover;
-    background-position: center;
-    text-decoration: none;
-    color: white;
-    border: white 2px solid;
-    min-height: 350px;
 }
 
 #garage {
     background-image: url('images/garage.png');
-    background-size: cover;
-    background-position: center;
-    text-decoration: none;
-    color: white;
-    border: white 2px solid;
-    min-height: 350px;
 }
 
 #club {
     background-image: url('images/club.png');
-    background-size: cover;
-    background-position: center;
-    text-decoration: none;
-    color: white;
-    border: white 2px solid;
-    min-height: 350px;
 }
 
 #newest {
     background-image: url('images/newest.png');
-    background-size: cover;
-    background-position: center;
-    text-decoration: none;
-    color: white;
-    border: white 2px solid;
-    min-height: 350px;
 }
 
 #delivery {
     background-image: url('images/delivery.png');
-    background-size: cover;
-    background-position: center;
-    text-decoration: none;
-    color: white;
-    border: white 2px solid;
-    min-height: 350px;
 }
 
 .card-content {
@@ -211,10 +193,10 @@
 .club_h1,
 .aboutus_h1,
 .newest_h1,
-.login_h1 {
+.login_h1,
+.registration_h1 {
     text-align: center;
     padding-bottom: 5px;
-    color: #333;
 }
 
 .card-image {
@@ -237,34 +219,60 @@
     object-fit: cover;
 }
 
-#aboutus_card1 {
-    margin: 2px;
-    margin-right: 25px;
-    width: 300px;
-    border: rgba(0, 0, 0, 0.5) 2px solid;
-}
-
-#aboutus_card2 {
-
-    margin: 2px;
-    margin-right: 25px;
-    width: 300px;
-    border: rgba(0, 0, 0, 0.5) 2px solid;
-}
-
+#aboutus_card1,
+#aboutus_card2,
 #aboutus_card3 {
     margin: 2px;
     margin-right: 25px;
     width: 300px;
     border: rgba(0, 0, 0, 0.5) 2px solid;
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 0px;
+    text-align: center;
+}
+
+.club_h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 #club_table {
-    width: 45%;
-    margin-left: auto;
-    margin-right: auto;
-    border: rgba(0, 0, 0, 0.5) 2px solid;
-    color: rgba(0, 0, 0, 0.5);
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    font-size: 1rem;
+    color: #333;
+}
+
+#club_table th,
+#club_table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+#club_table th {
+    background-color: #2c3e50;
+    color: white;
+}
+
+#club_table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+#club_table tbody tr:nth-child(even) {
+    background-color: #fff;
+}
+
+#club_table tbody tr:hover {
+    background-color: #e8f4f8;
 }
 
 #club_videos {
@@ -272,16 +280,105 @@
     padding-bottom: 15px;
 }
 
-#newest_button {
+
+#join_club {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+}
+
+#joinbutton_club {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #3498db;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#joinbutton_club:hover {
+    background-color: #2980b9;
+}
+
+#popupbutton_club {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#popupwindow_club {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#popupwindow_club .card {
+    border: none;
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    width: 100%;
+    border-radius: 0px;
+}
+
+#popupwindow_club p {
+    font-size: 0.9rem;
+    color: #ffffff;
+}
+
+#popupwindow_club .form-control {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+#popupwindow_club .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    color: white;
+    background-color: #27ae60;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#popupwindow_club .btn:hover {
+    background-color: #1e8449;
+}
+
+#close_club {
+    background-color: #e74c3c;
+}
+
+#close_club:hover {
+    background-color: #c0392b;
+}
+
+.club_p {
     text-align: center;
 }
 
-#login {
-    margin-right: auto;
-    margin-left: auto;
+#newest_button {
     text-align: center;
-    border: 0;
-
 }
 
 #email,
@@ -292,6 +389,10 @@
 
 #registration,
 #login {
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+    border: 0;
     margin-top: 5px;
     margin-bottom: 15px;
 }
@@ -351,6 +452,7 @@
 
 .scrolling-wrapper {
     display: flex;
+    justify-content: center;
     overflow-x: auto;
     padding: 5px;
     white-space: nowrap;
@@ -362,15 +464,18 @@
     width: 255px;
     text-align: center;
     border: 2px rgba(0, 0, 0, 0.5) solid;
+    background-color: #2c3e50;
+    color: #fff;
 }
 
 .scrolling-wrapper .form-select {
     width: 100%;
     height: 300px;
-}
-
-#select1 {
-    width: 250px;
+    margin: 0 auto;
+    border-radius: 0px;
+    outline: none;
+    box-shadow: none;
+    border-color: inherit;
 }
 
 .text-center {
@@ -386,40 +491,22 @@
     text-align: center;
 }
 
-.card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    max-width: 800px;
-    text-align: center; 
-}
-
-.card {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.garage_h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 2.5rem;
-}
-
-.card {
-    background-color: #2c3e50;
-    color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
 .card h4 {
     font-size: 1.2rem;
     margin-bottom: 10px;
     color: #ecf0f1;
+    opacity: 1;
+}
+
+.card p {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.card:hover p {
+    opacity: 1;
+    height: auto;
 }
 
 .form-control {
@@ -451,211 +538,81 @@
     background-color: #c0392b;
 }
 
-.club_h1 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
-h4 {
-    text-align: center;
-    margin-top: 10px;
-    color: #333;
-    font-size: 1.5rem;
-}
-
-#club_table {
-    width: 80%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    font-size: 1rem;
-    color: #333;
-}
-
-#club_table th, #club_table td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-}
-
-#club_table th {
+#card1,
+#card2,
+#card3 {
+    width: 95%;
     background-color: #2c3e50;
-    color: white;
+    margin: 0 auto;
+    border: 2px solid #0166B1;
 }
 
-#club_table tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
+.container.mt-5 {
+    width: 100%;
+    max-width: 1000px;
+    ;
 }
 
-#club_table tbody tr:nth-child(even) {
-    background-color: #fff;
-}
-
-#club_table tbody tr:hover {
-    background-color: #e8f4f8;
-}
-
-
-#join_club {
+.search-container {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
     width: 100%;
-    text-align: center;
-    margin: 30px 0;
+    gap: 20px;
 }
 
-#joinbutton_club {
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: white;
-    background-color: #3498db;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+#search1-container {
+    flex: 1;
 }
 
-#joinbutton_club:hover {
-    background-color: #2980b9;
+#search2-container {
+    flex: 1;
+    text-align: right;
 }
 
-#popupbutton_club {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
+#search2 {
+    float: right;
 }
 
-#popupwindow_club {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-#popupwindow_club .card {
-    border: none;
-}
-
-#popupwindow_club p {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-#popupwindow_club .form-control {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 15px;
-    font-size: 0.9rem;
-}
-
-#popupwindow_club .btn {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    color: white;
-    background-color: #27ae60;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#popupwindow_club .btn:hover {
-    background-color: #1e8449;
-}
-
-#close_club {
-    background-color: #e74c3c;
-}
-
-#close_club:hover {
-    background-color: #c0392b;
-}
-
-.club_p {
+.right-search,
+.left-search {
     text-align: center;
 }
 
-.scrolling-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-    padding: 15px 0;
-    overflow-x: auto;
+.right-search label,
+.left-search label {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
-.scrolling-wrapper::-webkit-scrollbar {
-    height: 8px;
-}
-
-.scrolling-wrapper::-webkit-scrollbar-thumb {
-    background-color: #007bff;
-    border-radius: 4px;
-}
-
-.scrolling-wrapper::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
-
-.select-container {
-    flex: 1 1 200px;
-    max-width: 300px;
+.right-search input,
+.left-search input {
     text-align: left;
+    width: 100%;
 }
 
-.select-container label {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-bottom: 0.3rem;
-    color: #495057;
-}
-
-.form-select {
-    border: 1px solid #ced4da;
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 1rem;
-    color: #495057;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-select:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.registration
-{
-    text-align: center;
-}
-
-@keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(50px);
+@media (max-width: 768px) {
+    main.container {
+        width: 95%;
+        padding: 10px;
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
+
+    .search-container {
+        flex-direction: column;
+        gap: 10px;
     }
-  }
-  
-  .anim .card {
-    opacity: 0;
-    transform: translateY(50px);
-    animation: fadeIn 1s ease-out forwards;
-  }
-  
-  .card-animated {
-    animation-delay: 0s;
-  }
+
+    #search2 {
+        float: none;
+    }
+
+    .right-search,
+    .left-search {
+        text-align: center;
+    }
+
+    .right-search label,
+    .left-search label {
+        text-align: center;
+    }
+}
