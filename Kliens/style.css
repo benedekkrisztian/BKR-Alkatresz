@@ -236,13 +236,6 @@ main {
     text-align: center;
 }
 
-.club_h1 {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
 #club_table {
     width: 80%;
     margin: 20px auto;
@@ -318,12 +311,10 @@ main {
 }
 
 #popupwindow_club {
-    background-color: white;
     border-radius: 10px;
     padding: 20px;
     width: 90%;
     max-width: 400px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 #popupwindow_club .card {
@@ -417,7 +408,6 @@ main {
     border: rgba(0, 0, 0, 0.5) 2px solid;
     border-radius: 10px;
     min-width: min-content;
-
 }
 
 #join_club {
@@ -426,7 +416,6 @@ main {
     text-align: center;
     width: 300px;
     padding-bottom: 15px;
-
 }
 
 #joinbutton_club {
@@ -498,13 +487,13 @@ main {
     opacity: 1;
 }
 
-.card p {
+.homepage .card p {
     opacity: 0;
     height: 0;
     overflow: hidden;
 }
 
-.card:hover p {
+.homepage .card:hover p {
     opacity: 1;
     height: auto;
 }
