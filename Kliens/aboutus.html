@@ -15,14 +15,15 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="homepage.html"><img src="images/logo.png" alt="Logó" width="53"
-                        height="51"></a>
+                <a class="navbar-brand" href="homepage.html"><img src="images/logo.png" alt="Logó" width="53" height="51"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Keresés" aria-label="search">
-                    <button class="btn" type="submit">Keresés</button>
-                </form>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Keresés" aria-label="search">
+                        <button class="btn" type="submit">Keresés</button>
+                    </form>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="homepage.html">Főoldal</a>
@@ -55,8 +56,8 @@
 
     <main>
         <h1 class="aboutus_h1">Rólunk</h1>
-        <h4>Miért kezdtük el?</h4>
-        <p>
+        <h4 class="aboutus_h4">Miért kezdtük el?</h4>
+        <p class="aboutus_p">
             A BMW gyári alkatrészek árusítását azért kezdtük el, mivel az országban kifejezetten ehhez a márkához csak
             több helyről lehet alkatrészeket beszerezni. Nálunk viszont kizárólag gyári alkatrészeket forgalmazunk
             kedvező áron.
@@ -96,9 +97,9 @@
                 <h3>Elérhetőségeink</h3>
                 <p>Email: info@bkralkatresz.hu</p>
                 <p>Telefon: +36 1 234 5678</p>
-                <p><img class="smalllogo" src="images/facebook.svg"><a href="#">Facebook</a></p>
-                <p><img class="smalllogo" src="images/instagram.svg"><a href="#">Instagram</a></p>
-                <p><img class="smalllogo" src="images/youtube.svg"><a href="#">YouTube</a></p>
+                <p><img class="smalllogo" src="images/facebook.svg"><a href="https://www.facebook.com/?locale=hu_HU" target="_blank">Facebook</a></p>
+                <p><img class="smalllogo" src="images/instagram.svg"><a href="https://www.instagram.com/" target="_blank">Instagram</a></p>
+                <p><img class="smalllogo" src="images/youtube.svg"><a href="https://www.youtube.com/" target="_blank">YouTube</a></p>
             </div>
             <div class="footer-section">
                 <h3>Üzleteink</h3>
@@ -112,7 +113,8 @@
             </div>
             <div class="footer-section">
                 <h3>Szállítás</h3>
-                <p>Szállítási információkért látogasson el a <a href="delivery.html">Szállítás</a> oldalunkra.</p>
+                <p>Szállítási információkért látogasson el a <b><a href="delivery.html">Szállítás</a></b> oldalunkra.
+                </p>
             </div>
             <div class="footer-section">
                 <h3>Online fizetési módok</h3>
@@ -128,7 +130,6 @@
             </form>
         </div>
     </footer>
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

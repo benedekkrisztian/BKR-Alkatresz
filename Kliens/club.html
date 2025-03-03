@@ -15,14 +15,15 @@
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" href="homepage.html"><img src="images/logo.png" alt="Logó" width="53"
-                        height="51"></a>
+                <a class="navbar-brand" href="homepage.html"><img src="images/logo.png" alt="Logó" width="53" height="51"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Keresés" aria-label="search">
-                    <button class="btn" type="submit">Keresés</button>
-                </form>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Keresés" aria-label="search">
+                        <button class="btn" type="submit">Keresés</button>
+                    </form>
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="homepage.html">Főoldal</a>
@@ -46,7 +47,7 @@
                             <a class="nav-link active" aria-current="page" href="cart.html">
                                 <img src="images/cart.svg" alt="Cart" width="30" height="30">
                             </a>
-                        </li> 
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -55,12 +56,14 @@
 
     <main>
         <h1 class="club_h1">Club</h1>
-        <h4>Miért éri meg, hogy clubtag legyél?</h4>
-        <p class="club_p">Ha van clubtagságod, a lent talátható táblázatban, a megfelelő időszakhoz képest kaphatsz kedvezményt a termékeinkre.
-            Egy bizonyos mennyiségű rendelés után, egyszeri kedvezményt biztosítunk,<br>
+        <h4 class="club_h4">Miért éri meg, hogy clubtag legyél?</h4>
+        <p class="club_p">Ha van clubtagságod, a lent talátható táblázatban, a megfelelő időszakhoz képest kaphatsz
+            kedvezményt a termékeinkre.
+            Egy bizonyos mennyiségű rendelés után, egyszeri kedvezményt biztosítunk,
             amik 20 és 50 százalék között mozognak, továbbá a tippjeinkhez is hozzáférést kapsz,
-            amik az autós élet terén segítenek. A clubtagság 1 hónapra 2299HUF ami hogyha lejár,<br>
-            az eddigi feliratkozott időszakod nem vész el hanem hozzá adódik az eddigihez amennyiben újra feliratkozol.</p>
+            amik az autós élet terén segítenek. A clubtagság 1 hónapra 2299HUF ami hogyha lejár,
+            az eddigi feliratkozott időszakod nem vész el hanem hozzá adódik az eddigihez amennyiben újra feliratkozol.
+        </p>
         <table class="table" id="club_table">
             <thead>
                 <tr>
@@ -138,7 +141,7 @@
                                 <button class="btn btn-primary mb-3" id="pay_club">Fizetés: 2299HUF</button>
                             </div>
                             <div class="col-12">
-                                <button class="btn btn-primary mb-3" id="close_club">Vissza</button>
+                                <button class="btn btn-danger mb-3" id="close_club">Vissza</button>
                             </div>
                         </div>
                     </div>
@@ -172,9 +175,9 @@
                 <h3>Elérhetőségeink</h3>
                 <p>Email: info@bkralkatresz.hu</p>
                 <p>Telefon: +36 1 234 5678</p>
-                <p><img class="smalllogo" src="images/facebook.svg"><a href="#">Facebook</a></p>
-                <p><img class="smalllogo" src="images/instagram.svg"><a href="#">Instagram</a></p>
-                <p><img class="smalllogo" src="images/youtube.svg"><a href="#">YouTube</a></p>
+                <p><img class="smalllogo" src="images/facebook.svg"><a href="https://www.facebook.com/?locale=hu_HU" target="_blank">Facebook</a></p>
+                <p><img class="smalllogo" src="images/instagram.svg"><a href="https://www.instagram.com/" target="_blank">Instagram</a></p>
+                <p><img class="smalllogo" src="images/youtube.svg"><a href="https://www.youtube.com/" target="_blank">YouTube</a></p>
             </div>
             <div class="footer-section">
                 <h3>Üzleteink</h3>
@@ -188,7 +191,8 @@
             </div>
             <div class="footer-section">
                 <h3>Szállítás</h3>
-                <p>Szállítási információkért látogasson el a <a href="delivery.html">Szállítás</a> oldalunkra.</p>
+                <p>Szállítási információkért látogasson el a <b><a href="delivery.html">Szállítás</a></b> oldalunkra.
+                </p>
             </div>
             <div class="footer-section">
                 <h3>Online fizetési módok</h3>
