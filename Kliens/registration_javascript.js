@@ -30,6 +30,6 @@ function save(event) {
     if (clubMember) {
         window.location.href = "club.html";
     } else {
-        window.location.href = "fooldal.html";
+        window.location.href = "homepage.html";
     }
 }
