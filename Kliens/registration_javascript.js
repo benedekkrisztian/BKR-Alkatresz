@@ -1,4 +1,4 @@
-function save(event) {
+async function save(event) {
     event.preventDefault();
 
     const email = document.getElementById("email").value.trim();
@@ -22,14 +22,30 @@ function save(event) {
         return;
     }
 
-    alert("Sikeres regisztráció!");
-    console.log({ email, username, password });
+    try {
+        const response = await fetch("http://localhost:3000/regisztracio", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                felhasznalonev: username,
+                jelszo: password
+            })
+        });
 
-    document.getElementById("registration_panel").reset();
+        const result = await response.json();
 
-    if (clubMember) {
-        window.location.href = "club.html";
-    } else {
-        window.location.href = "homepage.html";
+        if (response.ok) {
+            alert("Sikeres regisztráció!");
+            document.getElementById("registration_panel").reset();
+            window.location.href = clubMember ? "club.html" : "homepage.html";
+        } else {
+            alert("Hiba történt: " + result.error);
+        }
+    } catch (error) {
+        console.error("Hálózati hiba:", error);
+        alert("Nem sikerült csatlakozni a szerverhez.");
     }
 }
