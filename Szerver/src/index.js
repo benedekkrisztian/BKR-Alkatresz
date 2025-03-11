@@ -86,7 +86,7 @@ app.post("/regisztracio", async (req, res) => {
         );
 
         if (existingUser.length > 0) {
-            throw new Error("A felhasználónev már foglalt.");
+            throw new Error("A felhasználónév már foglalt.");
         }
 
         const hashedPassword = await bcrypt.hash(body.jelszo, 14);
@@ -101,11 +101,13 @@ app.post("/regisztracio", async (req, res) => {
             throw new Error("A regisztráció sikertelen.");
         }
 
+      
         res.status(201).json({
             message: "A felhasználó sikeresen regisztrálva.",
             results
         });
     } catch (err) {
+        console.log(err);
         if (err.message.includes("Invalid")) {
             res.status(400).json({
                 error: err.message,
@@ -134,6 +136,7 @@ app.post("/bejelentkezes", async (req, res) => {
             throw new Error("Az email-nek tartalmaznia kell a @-t.");
         }
 
+        console.log(jelszo);
         if (!jelszo || typeof (body.jelszo) !== "string") {
             throw new Error("Helytelen jelszo.");
         }
@@ -146,14 +149,14 @@ app.post("/bejelentkezes", async (req, res) => {
             throw new Error("A felhasználó nem letezik.");
         }
 
+        console.log(existingEmail[0].jelszo);
         const isPasswordValid= await bcrypt.compare(body.jelszo, existingEmail[0].jelszo);
-
         if (!isPasswordValid) {
             throw new Error("Helytelen jelszo.");
         }
 
         const token = jwt.sign(
-            {_id: existingEmail[0].id},
+            {_id: existingEmail[0].felhasznalo_id},
             "secret",
             {expiresIn: "2h"}
         );
@@ -161,6 +164,8 @@ app.post("/bejelentkezes", async (req, res) => {
         res.json({token:token});
 
     } catch (err) {
+        console.log(err);
+
         if (err.message.includes("Invalid")) {
             res.status(400).json({
                 error: err.message,
@@ -190,7 +195,7 @@ app.get("/profile", async (req, res)=>{
         }
         const decodedToken= jwt.verify(token, "secret")
         const [user] = await pool.query(
-            "SELECT * FROM felhasznalok WHERE id=? ",[decodedToken._id]
+            "SELECT * FROM felhasznalok WHERE felhasznalo_id=? ",[decodedToken._id]
         );
 
         if(user.length !== 1){
@@ -198,9 +203,10 @@ app.get("/profile", async (req, res)=>{
         }
 
         res.json({
-            username: user[0].username
+            username: user[0].felhasznalonev
         });
     }catch (err) {
+        console.log(err);
         if (err.message.includes("Invalid")) {
             res.status(401).json({
                 error: err.message,
