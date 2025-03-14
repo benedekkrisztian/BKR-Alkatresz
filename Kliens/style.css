@@ -309,46 +309,6 @@ main {
     height: auto;
 }
 
-.newsletter {
-    background-color: #0166B1;
-    padding: 20px;
-    text-align: center;
-}
-
-.newsletter h3,
-.newsletter p {
-    color: #ffffff;
-    margin-bottom: 10px;
-}
-
-.newsletter-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.newsletter-form input[type="email"] {
-    width: 100%;
-    max-width: 400px;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-    font-size: 16px;
-}
-
-.newsletter-form button {
-    padding: 10px 20px;
-    background-color: #ecf0f1;
-    color: #34495e;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.newsletter-form button:hover {
-    background-color: #BDC3C7;
-}
-
 .smalllogo {
     padding-right: 5px;
 }
@@ -765,40 +725,20 @@ main {
     gap: 20px;
 }
 
-#search1-container {
-    flex: 1;
-}
-
-#search2-container {
-    flex: 1;
-    text-align: right;
-}
-
-#search2 {
-    float: right;
-}
-
-.right-search,
-.left-search {
-    text-align: center;
-}
-
-.right-search label,
-.left-search label {
-    display: block;
-    text-align: center;
-    margin-bottom: 5px;
-}
-
-.right-search input,
-.left-search input {
-    text-align: left;
-    width: 100%;
-}
-
 .cart-header {
     text-align: center;
     margin: 20px 0;
+}
+
+#search {
+    margin-right: auto;
+    margin-left: auto;
+    width: 600px;
+}
+
+#search-label {
+    display: block;
+    text-align: center;
 }
 
 .cart-table {

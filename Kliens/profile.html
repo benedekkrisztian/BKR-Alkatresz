@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript" src="login_javascript.js"></script>
     <link rel="icon" type="image/x-icon" href="images/logo.png">
     <title>BKR Alkatrész</title>
 </head>
@@ -34,9 +35,10 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="aboutus.html">Rólunk</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="login.html">Bejelentkezés</a>
-                        </li>
+                        <li class="nav-item" id="user-menu">
+                            <a class="nav-link active" href="login.html" id="login-link">Bejelentkezés</a>
+                        </li>      
+                                      
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="garage.html">Garázs</a>
                         </li>
@@ -54,38 +56,28 @@
         </nav>
     </header>
 
-    <main>
-        <h1 class="aboutus_h1">Rólunk</h1>
-        <h4 class="aboutus_h4">Miért kezdtük el?</h4>
-        <p class="aboutus_p">
-            A BMW gyári alkatrészek árusítását azért kezdtük el, mivel az országban kifejezetten ehhez a márkához csak
-            több helyről lehet alkatrészeket beszerezni. Nálunk viszont kizárólag gyári alkatrészeket forgalmazunk
-            kedvező áron.
-        </p>
-
-        <div class="card-group" id="aboutus_cards">
-            <div class="card" id="aboutus_card1">
-                <img src="images/aboutus1.JPEG" class="card-img-top" id="aboutus_img1" alt="Billinger Benjámin"
-                    loading="lazy">
-                <div class="card-body">
-                    <p class="card-title">Billinger Benjámin</p>
-                    <p class="card-text">Kódolás</p>
-                </div>
-            </div>
-            <div class="card" id="aboutus_card2">
-                <img src="images/aboutus2.JPEG" class="card-img-top" id="aboutus_img2" alt="Benedek Krisztián"
-                    loading="lazy">
-                <div class="card-body">
-                    <p class="card-title">Benedek Krisztián</p>
-                    <p class="card-text">Kódolás</p>
-                </div>
-            </div>
-            <div class="card" id="aboutus_card3">
-                <img src="images/aboutus3.JPEG" class="card-img-top" id="aboutus_img3" alt="Petrik Rajmund"
-                    loading="lazy">
-                <div class="card-body">
-                    <p class="card-title">Petrik Rajmund</p>
-                    <p class="card-text">Grafikus</p>
+    <main class="d-flex flex-column align-items-center">
+        <h1 class="profil_h1">Profil</h1>
+        <div class="row justify-content-center w-100">
+            <div class="col-md-4">
+                <div class="card text-white mb-3 w-100" id="garage_card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center">Felhasználói adatok módosítása</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">E-mail cím módosítása:</label>
+                                <input type="email" class="form-control" id="email" placeholder="Adja meg az új e-mail címet">
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Jelszó módosítása:</label>
+                                <input type="password" class="form-control" id="password" placeholder="Adja meg az új jelszavát">
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button type="submit" class="btn btn-success w-50">Mentés</button>
+                                <button type="reset" class="btn btn-danger w-50" onclick="logout()">Kijelentkezés</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

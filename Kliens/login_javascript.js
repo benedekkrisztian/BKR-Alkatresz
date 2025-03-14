@@ -74,3 +74,33 @@ async function fetchProfile() {
         alert(err.message);
     }
 }
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const userMenu = document.getElementById("user-menu");
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        try {
+            const response = await fetch("http://localhost:3000/profile", {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                userMenu.innerHTML = `<a class="nav-link active" href="profile.html">${data.username}</a>`;
+            } else {
+                throw new Error("Felhasználónév betöltése sikertelen.");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+});
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "homepage.html";
+}

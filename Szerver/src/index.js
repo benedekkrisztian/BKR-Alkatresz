@@ -74,7 +74,7 @@ app.post("/regisztracio", async (req, res) => {
             throw new Error("Helytelen email.");
         }
         if (!email.includes("@")) {
-            throw new Error("Az email-nek tartalmaznia kell a @-t.");
+            throw new Error("Helytelen email. Az email-nek tartalmaznia kell a @-t.");
         }
 
         if (!jelszo || typeof (body.jelszo) !== "string") {
@@ -86,7 +86,7 @@ app.post("/regisztracio", async (req, res) => {
         );
 
         if (existingUser.length > 0) {
-            throw new Error("A felhasználónév már foglalt.");
+            throw new Error("Helytelen felhasználónev. A felhasználónév már foglalt.");
         }
 
         const hashedPassword = await bcrypt.hash(body.jelszo, 14);
@@ -98,7 +98,7 @@ app.post("/regisztracio", async (req, res) => {
         );
 
         if (results.affectedRows < 1) {
-            throw new Error("A regisztráció sikertelen.");
+            throw new Error("Helytelen. A regisztráció sikertelen.");
         }
 
       
@@ -108,7 +108,7 @@ app.post("/regisztracio", async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-        if (err.message.includes("Invalid")) {
+        if (err.message.includes("Helytelen")) {
             res.status(400).json({
                 error: err.message,
             });
@@ -133,7 +133,7 @@ app.post("/bejelentkezes", async (req, res) => {
             throw new Error("Helytelen email.");
         }
         if (!email.includes("@")) {
-            throw new Error("Az email-nek tartalmaznia kell a @-t.");
+            throw new Error("Helytelen email. Az email-nek tartalmaznia kell a @-t.");
         }
 
         console.log(jelszo);
@@ -146,7 +146,7 @@ app.post("/bejelentkezes", async (req, res) => {
         );
 
         if (existingEmail.length < 1) {
-            throw new Error("A felhasználó nem letezik.");
+            throw new Error("HelytelenA felhasználó nem letezik.");
         }
 
         console.log(existingEmail[0].jelszo);
@@ -166,7 +166,7 @@ app.post("/bejelentkezes", async (req, res) => {
     } catch (err) {
         console.log(err);
 
-        if (err.message.includes("Invalid")) {
+        if (err.message.includes("Helytelen")) {
             res.status(400).json({
                 error: err.message,
             });
@@ -199,7 +199,7 @@ app.get("/profile", async (req, res)=>{
         );
 
         if(user.length !== 1){
-            throw new Error("Hiba a hitelesítés során: Invalid token.")
+            throw new Error("Hiba a hitelesítés során: Helytelen token.")
         }
 
         res.json({
@@ -207,12 +207,12 @@ app.get("/profile", async (req, res)=>{
         });
     }catch (err) {
         console.log(err);
-        if (err.message.includes("Invalid")) {
+        if (err.message.includes("Helytelen")) {
             res.status(401).json({
                 error: err.message,
             });
             return;
-        }  if (err.message.includes("Invalid")) {
+        }  if (err.message.includes("Helytelen")) {
             res.status(400).json({
                 error: err.message,
             });
@@ -224,6 +224,42 @@ app.get("/profile", async (req, res)=>{
     }
 });
 
+app.put("/felhasznalomodosit/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { email, jelszo } = req.body;
+
+        if (!email || !email.includes("@")) {
+            throw new Error("Érvénytelen email cím.");
+        }
+
+        if (!jelszo || typeof jelszo !== "string") {
+            throw new Error("Érvénytelen jelszó.");
+        }
+
+        const hashedPassword = await bcrypt.hash(jelszo, 14);
+
+        const [result] = await pool.query(
+            "UPDATE felhasznalok SET email = ?, jelszo = ? WHERE felhasznalo_id = ?",
+            [email, hashedPassword, id]
+        );
+
+        if (result.affectedRows === 0) {
+            throw new Error("A felhasználó nem található.");
+        }
+
+        res.json({
+            message: "A felhasználó adatai sikeresen frissítve."
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: "Hiba történt a felhasználó adatainak frissítése során."
+        });
+    }
+
+
+});
 
 app.listen(PORT, () => {
     console.log(`A szerver elindult localhost:${PORT} porton.`);
