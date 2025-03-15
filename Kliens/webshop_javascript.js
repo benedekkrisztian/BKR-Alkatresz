@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     fetchDataAndPopulateSelect("/tipus", "select1");
     document.getElementById("select1").addEventListener("change", handleTipusChange);
+    document.getElementById("search-button").addEventListener("click", handleSearch);
 });
 
 async function fetchDataAndPopulateSelect(endpoint, selectId) {
@@ -49,5 +50,30 @@ async function handleTipusChange() {
         });
     } catch (error) {
         console.error("Error fetching data for kivitel or model:", error);
+    }
+}
+async function handleSearch() {
+    const cikkszam = document.getElementById("search").value.trim();
+    if (!cikkszam) {
+        alert("Kérjük, adja meg a cikkszámot.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/termekek/cikkszam/${cikkszam}`);
+        if (!response.ok) {
+            throw new Error("Nem található alkatrész a megadott cikkszámmal.");
+        }
+        const termek = await response.json();
+        if (termek.length === 0) {
+            alert("Nem található alkatrész a megadott cikkszámmal.");
+            return;
+        }
+
+        // Átirányítás a partnumber.html oldalra a cikkszámmal
+        window.location.href = `partnumber.html?cikkszam=${encodeURIComponent(cikkszam)}`;
+    } catch (error) {
+        console.error("Error fetching part details:", error);
+        alert("Hiba történt az alkatrész keresése során.");
     }
 }

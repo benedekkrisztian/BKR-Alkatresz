@@ -359,6 +359,24 @@ app.get("/termekek", async (req, res) => {
     }
 });
 
+app.get("/termekek/cikkszam/:cikkszam", async (req, res) => {
+    try {
+        const { cikkszam } = req.params;
+        const [results,] = await pool.query(
+            `SELECT termek_id, leiras, darab, alkatreszszam, ar, tipus_id 
+             FROM termekek 
+             WHERE alkatreszszam = ?`, [cikkszam]
+        );
+
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            "error": "Nem sikerült lekérdezni a terméket."
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`A szerver elindult localhost:${PORT} porton.`);
 });
