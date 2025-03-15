@@ -3,13 +3,8 @@ import mysql from "mysql2/promise";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import cors from "cors";
-
 const PORT = 3000;
-
 const app = express();
-app.use(cors());
-app.use(express.json());
-
 const pool = mysql.createPool({
     host: "localhost",
     user: "root",
@@ -17,44 +12,8 @@ const pool = mysql.createPool({
     database: "bkr_alkatresz",
 });
 
-
-
-app.get("/tipus/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [results,] = await pool.query(
-            `SELECT tipus_id, tipus, kivitel, model, motorkod, gyartasiciklus 
-             FROM tipus 
-             WHERE tipus_id = ?`, [id]
-        );
-
-        res.json(results);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            "error": "Nem sikerült lekérdezni a típust."
-        });
-    }
-});
-
-app.get("/termekek/:id", async (req, res) => {
-    try {
-        const { id } = req.params;
-        const [results,] = await pool.query(
-            `SELECT termek_id, leiras, darab, alkatreszszam, ar, tipus_id 
-             FROM termekek 
-             WHERE termek_id = ?`, [id]
-        );
-
-        res.json(results);
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({
-            "error": "Nem sikerült lekérdezni a terméket."
-        });
-    }
-});
-
+app.use(cors());
+app.use(express.json());
 app.post("/regisztracio", async (req, res) => {
     try {
         const body = req.body;
@@ -101,7 +60,6 @@ app.post("/regisztracio", async (req, res) => {
             throw new Error("Hiba: A regisztráció sikertelen.");
         }
 
-      
         res.status(201).json({
             message: "A felhasználó sikeresen regisztrálva.",
             results
@@ -150,18 +108,18 @@ app.post("/bejelentkezes", async (req, res) => {
         }
 
         console.log(existingEmail[0].jelszo);
-        const isPasswordValid= await bcrypt.compare(body.jelszo, existingEmail[0].jelszo);
+        const isPasswordValid = await bcrypt.compare(body.jelszo, existingEmail[0].jelszo);
         if (!isPasswordValid) {
             throw new Error("Hiba: Helytelen jelszo.");
         }
 
         const token = jwt.sign(
-            {_id: existingEmail[0].felhasznalo_id},
+            { _id: existingEmail[0].felhasznalo_id },
             "secret",
-            {expiresIn: "2h"}
+            { expiresIn: "2h" }
         );
 
-        res.json({token:token});
+        res.json({ token: token });
 
     } catch (err) {
         console.log(err);
@@ -175,30 +133,29 @@ app.post("/bejelentkezes", async (req, res) => {
         res.status(500).json({
             error: "Valami hiba történt."
         });
-     }
+    }
 });
 
-
-app.get("/profile", async (req, res)=>{
-    try{
+app.get("/profile", async (req, res) => {
+    try {
         const authHeader = req.headers["authorization"];
 
-        if(!authHeader){
+        if (!authHeader) {
             throw new Error("Hiba: Hitelesítés szükséges.");
 
         }
 
-        const token =authHeader.split(" ")[1];
+        const token = authHeader.split(" ")[1];
 
-        if(!token){
+        if (!token) {
             throw new Error("Hiba: Hitelesítés szükséges.");
         }
-        const decodedToken= jwt.verify(token, "secret")
+        const decodedToken = jwt.verify(token, "secret")
         const [user] = await pool.query(
-            "SELECT * FROM felhasznalok WHERE felhasznalo_id=? ",[decodedToken._id]
+            "SELECT * FROM felhasznalok WHERE felhasznalo_id=? ", [decodedToken._id]
         );
 
-        if(user.length !== 1){
+        if (user.length !== 1) {
             throw new Error("Hiba a hitelesítés során: Helytelen token.")
         }
 
@@ -206,14 +163,14 @@ app.get("/profile", async (req, res)=>{
             username: user[0].felhasznalonev,
             club: user[0].club
         });
-    }catch (err) {
+    } catch (err) {
         console.log(err);
         if (err.message.includes("Hiba")) {
             res.status(401).json({
                 error: err.message,
             });
             return;
-        }  if (err.message.includes("Hiba")) {
+        } if (err.message.includes("Hiba")) {
             res.status(400).json({
                 error: err.message,
             });
@@ -224,6 +181,7 @@ app.get("/profile", async (req, res)=>{
         });
     }
 });
+
 app.put("/felhasznalomodosit", async (req, res) => {
     try {
         const authHeader = req.headers["authorization"];
@@ -272,9 +230,8 @@ app.put("/felhasznalomodosit", async (req, res) => {
 app.get("/tipus", async (req, res) => {
     try {
         const { tipus, kivitel, model } = req.query;
-        
+
         if (tipus && kivitel && model) {
-            // Ha van tipus, kivitel és model paraméter, akkor keressük meg a típus azonosítót
             const [results,] = await pool.query(
                 `SELECT t.tipus_id, COUNT(p.termek_id) as hasProducts
                  FROM tipus t
@@ -285,7 +242,6 @@ app.get("/tipus", async (req, res) => {
             );
             res.json(results);
         } else {
-            // Ha nincsenek paraméterek, akkor listázzuk az összes típust
             const [results,] = await pool.query("SELECT DISTINCT tipus AS name FROM tipus");
             res.json(results);
         }

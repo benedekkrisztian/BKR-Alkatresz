@@ -56,30 +56,35 @@
     <main>
         <div class="container mt-4">
             <div class="row" id="parts-gallery">
-                <!-- Images will be dynamically inserted here -->
             </div>
             <div class="row mt-4" id="selected-part-section" style="display: none;">
-                <h2 id="part-name"></h2> <!-- Add part-name element -->
+                <h2 id="part-name"></h2>
                 <div class="col-md-6" id="selected-image-container">
                     <img id="selected-image" src="" alt="Selected Part" class="img-fluid">
                 </div>
                 <div class="col-md-6">
-                    <button id="back-button" class="btn btn-primary mb-3">Vissza</button>
-                    <table class="table table-bordered" id="part-details">
-                        <thead>
-                            <tr>
-                                <th scope="col">Sorszám</th>
-                                <th scope="col">Leírás</th>
-                                <th scope="col">Darab</th>
-                                <th scope="col">Cikkszám</th>
-                                <th scope="col">Ár</th>
-                            </tr>
-                        </thead>
-                        <tbody id="part-details-body">
-                        </tbody>
-                    </table>
+                    <div>
+                        <table class="table table-bordered" id="part-details">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Sorszám</th>
+                                    <th scope="col">Leírás</th>
+                                    <th scope="col">Darab</th>
+                                    <th scope="col">Cikkszám</th>
+                                    <th scope="col">Ár</th>
+                                    <th scope="col">Mennyiség</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="part-details-body">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="text-center">
+            <button id="back-button" class="btn">Vissza</button>
         </div>
     </main>
 

@@ -66,30 +66,24 @@
                                 <input type="text" class="form-control" id="name1" placeholder="Adja meg az autó nevét">
                             </div>
                             <div class="mb-3">
-                                <label for="type1" class="form-label">Típus:</label>
+                                <label for="type" class="form-label">Típus:</label>
                                 <select class="form-select" id="type">
-                                    <option>Típus 1</option>
-                                    <option>Típus 2</option>
-                                    <option>Típus 3</option>
+                                    <option value="">Válasszon típust...</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="bodytype" class="form-label">Kivitel:</label>
-                                <select class="form-select" id="bodytype">
-                                    <option>Kivitel 1</option>
-                                    <option>Kivitel 2</option>
-                                    <option>Kivitel 3</option>
+                                <select class="form-select" id="bodytype" disabled>
+                                    <option value="">Válasszon kivitelt...</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="model" class="form-label">Model:</label>
-                                <select class="form-select" id="model">
-                                    <option>Model 1</option>
-                                    <option>Model 2</option>
-                                    <option>Model 3</option>
+                                <select class="form-select" id="model" disabled>
+                                    <option value="">Válasszon modelt...</option>
                                 </select>
                             </div>
-                            <a href="" class="btn btn-primary w-100 mb-2">Ugrás az autóhoz való alkatrészekhez</a>
+                            <a href="" class="btn btn-primary w-100 mb-2" id="partsLink">Ugrás az autóhoz való alkatrészekhez</a>
                             <div class="d-flex gap-2">
                                 <button type="submit" class="btn w-50">Mentés</button>
                                 <button type="reset" class="btn btn-danger w-50">Törlés</button>
@@ -137,6 +131,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="login_javascript.js"></script>
+    <script type="text/javascript" src="garage_javascript.js"></script>
 </body>
 
 </html>
