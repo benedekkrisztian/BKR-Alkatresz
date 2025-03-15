@@ -341,6 +341,24 @@ app.put("/clubtagsag", async (req, res) => {
     }
 });
 
+app.get("/termekek", async (req, res) => {
+    try {
+        const { kep } = req.query;
+        const [results,] = await pool.query(
+            `SELECT termek_id, leiras, darab, alkatreszszam, ar 
+             FROM termekek 
+             WHERE kep = ?`, [kep]
+        );
+
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            "error": "Nem sikerült lekérdezni a termékeket."
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`A szerver elindult localhost:${PORT} porton.`);
 });

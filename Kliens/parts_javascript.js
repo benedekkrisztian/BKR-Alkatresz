@@ -2,8 +2,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const partsGallery = document.getElementById("parts-gallery");
     const selectedPartSection = document.getElementById("selected-part-section");
     const selectedImage = document.getElementById("selected-image");
-    const partName = document.getElementById("part-name");
+    const partName = document.createElement("h2");
+    partName.id = "part-name";
+    selectedPartSection.insertBefore(partName, selectedPartSection.firstChild);
     const backButton = document.getElementById("back-button");
+    const partDetailsBody = document.getElementById("part-details-body");
     const parts = [
         { filename: "316i_1.png", name: "Motorblokk rögzítő alkatrészek" },
         { filename: "316i_2.png", name: "Motorblokk" },
@@ -48,12 +51,28 @@ document.addEventListener("DOMContentLoaded", function() {
         img.alt = part.name;
         img.className = "card-img-top";
         img.style.cursor = "pointer";
-        img.onclick = () => {
+        img.onclick = async () => {
             partsGallery.style.display = "none";
             selectedPartSection.style.display = "flex";
             selectedImage.src = img.src;
             selectedImage.alt = part.name;
             partName.textContent = part.name;
+
+            const response = await fetch(`http://localhost:3000/termekek?kep=${part.filename.split('_')[1].split('.')[0]}`);
+            const partDetails = await response.json();
+
+            partDetailsBody.innerHTML = "";
+            partDetails.forEach(detail => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${detail.termek_id}</td>
+                    <td>${detail.leiras}</td>
+                    <td>${detail.darab}</td>
+                    <td>${detail.alkatreszszam}</td>
+                    <td>${detail.ar} FT</td>
+                `;
+                partDetailsBody.appendChild(row);
+            });
         };
         const cardBody = document.createElement("div");
         cardBody.className = "card-body";
