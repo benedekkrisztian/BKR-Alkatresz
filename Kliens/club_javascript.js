@@ -1,4 +1,10 @@
-document.getElementById("join_club").addEventListener("click", function () {
+document.getElementById("joinbutton_club").addEventListener("click", function () {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("Bejelentkezés szükséges.");
+        window.location.href = "login.html";
+        return;
+    }
     document.getElementById("popupbutton_club").style.display = "block";
 });
 
@@ -8,22 +14,12 @@ document.getElementById("close_club").addEventListener("click", function () {
 
 document.getElementById("club_videos").style.display = "none";
 
-document.getElementById('joinbutton_club').onclick = function () {
-    document.getElementById('popupbutton_club').style.display = 'flex';
-};
-
-document.getElementById('close_club').onclick = function () {
-    document.getElementById('popupbutton_club').style.display = 'none';
-};
-
 const joinButton = document.getElementById("joinbutton_club");
 const popupWindow = document.getElementById("popupwindow_club");
 const closeButton = document.getElementById("close_club");
 const payButton = document.getElementById("pay_club");
 
-
-
-payButton.addEventListener("click", function () {
+payButton.addEventListener("click", async function () {
     const cardName = document.getElementById("payment_details_1_club").value.trim();
     const cardNumber = document.getElementById("payment_details_2_club").value.trim();
     const expiryDate = document.getElementById("payment_details_3_club").value.trim();
@@ -55,8 +51,59 @@ payButton.addEventListener("click", function () {
         return;
     }
 
-    alert("Sikeres fizetés!");
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("Hiba: Hitelesítés szükséges.");
+            return;
+        }
 
-    document.getElementById("popupbutton_club").style.display = "none";
-    club_videos.style.display = 'block';
+        const response = await fetch("http://localhost:3000/clubtagsag", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert("Sikeres fizetés!");
+            document.getElementById("popupbutton_club").style.display = "none";
+            club_videos.style.display = 'block';
+        } else {
+            alert(`Hiba: ${data.error}`);
+        }
+    } catch (error) {
+        console.error("Hiba történt a kérés során:", error);
+        alert("Hiba történt a kérés során.");
+    }
 });
+
+async function checkClubStatus() {
+    try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            return;
+        }
+
+        const response = await fetch("http://localhost:3000/profile", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.club) {
+            document.getElementById("club_videos").style.display = "block";
+            document.getElementById("join_club").style.display = "none";
+        }
+    } catch (error) {
+        console.error("Hiba történt a kérés során:", error);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", checkClubStatus);

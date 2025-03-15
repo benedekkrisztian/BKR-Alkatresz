@@ -203,7 +203,8 @@ app.get("/profile", async (req, res)=>{
         }
 
         res.json({
-            username: user[0].felhasznalonev
+            username: user[0].felhasznalonev,
+            club: user[0].club
         });
     }catch (err) {
         console.log(err);
@@ -303,6 +304,40 @@ app.get("/model", async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({ "error": "Nem sikerült lekérdezni a modelleket." });
+    }
+});
+
+app.put("/clubtagsag", async (req, res) => {
+    try {
+        const authHeader = req.headers["authorization"];
+        if (!authHeader) {
+            throw new Error("Hiba: Hitelesítés szükséges.");
+        }
+
+        const token = authHeader.split(" ")[1];
+        if (!token) {
+            throw new Error("Hiba: Hitelesítés szükséges.");
+        }
+
+        const decodedToken = jwt.verify(token, "secret");
+
+        const [result] = await pool.query(
+            "UPDATE felhasznalok SET club = ? WHERE felhasznalo_id = ?",
+            [true, decodedToken._id]
+        );
+
+        if (result.affectedRows === 0) {
+            throw new Error("Hiba: A felhasználó nem található.");
+        }
+
+        res.json({
+            message: "A club tagság sikeresen frissítve."
+        });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            error: "Hiba történt a club tagság frissítése során."
+        });
     }
 });
 
