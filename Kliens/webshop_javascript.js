@@ -1,0 +1,53 @@
+document.addEventListener("DOMContentLoaded", () => {
+    fetchDataAndPopulateSelect("/tipus", "select1");
+    document.getElementById("select1").addEventListener("change", handleTipusChange);
+});
+
+async function fetchDataAndPopulateSelect(endpoint, selectId) {
+    try {
+        const response = await fetch(`http://localhost:3000${endpoint}`);
+        const data = await response.json();
+        const selectElement = document.getElementById(selectId);
+
+        data.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.id || item.name;
+            option.textContent = item.name;
+            selectElement.appendChild(option);
+        });
+    } catch (error) {
+        console.error(`Error fetching data from ${endpoint}:`, error);
+    }
+}
+
+async function handleTipusChange() {
+    const tipus = document.getElementById("select1").value;
+    const selectKivitel = document.getElementById("select2");
+    const selectModel = document.getElementById("select3");
+    selectKivitel.innerHTML = "";
+    selectModel.innerHTML = "";
+
+    try {
+        const responseKivitel = await fetch(`http://localhost:3000/kivitel?tipus=${tipus}`);
+        const dataKivitel = await responseKivitel.json();
+
+        dataKivitel.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.name;
+            option.textContent = item.name;
+            selectKivitel.appendChild(option);
+        });
+
+        const responseModel = await fetch(`http://localhost:3000/model?tipus=${tipus}`);
+        const dataModel = await responseModel.json();
+
+        dataModel.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item.name;
+            option.textContent = item.name;
+            selectModel.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error fetching data for kivitel or model:", error);
+    }
+}

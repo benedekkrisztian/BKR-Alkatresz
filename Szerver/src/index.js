@@ -268,6 +268,44 @@ app.put("/felhasznalomodosit", async (req, res) => {
     }
 });
 
+app.get("/tipus", async (req, res) => {
+    try {
+        const [results,] = await pool.query("SELECT DISTINCT tipus AS name FROM tipus");
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ "error": "Nem sikerült lekérdezni a típusokat." });
+    }
+});
+
+app.get("/kivitel", async (req, res) => {
+    try {
+        const { tipus } = req.query;
+        const [results,] = await pool.query(
+            "SELECT DISTINCT kivitel AS name FROM tipus WHERE tipus = ?",
+            [tipus]
+        );
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ "error": "Nem sikerült lekérdezni a kiviteleket." });
+    }
+});
+
+app.get("/model", async (req, res) => {
+    try {
+        const { tipus } = req.query;
+        const [results,] = await pool.query(
+            "SELECT DISTINCT model AS name FROM tipus WHERE tipus = ?",
+            [tipus]
+        );
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ "error": "Nem sikerült lekérdezni a modelleket." });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`A szerver elindult localhost:${PORT} porton.`);
 });
