@@ -63,22 +63,22 @@ app.post("/regisztracio", async (req, res) => {
 
 
         if (!body || typeof (body) !== "object" || Object.keys(body).length !== 3) {
-            throw new Error("Helytelen kérés törzs.");
+            throw new Error("Hiba: Helytelen kérés törzs.");
         }
 
         if (!felhasznalonev || typeof (body.felhasznalonev) !== "string") {
-            throw new Error("Helytelen felhasználónev.");
+            throw new Error("Hiba: Helytelen felhasználónev.");
         }
 
         if (!email || typeof (body.email) !== "string") {
-            throw new Error("Helytelen email.");
+            throw new Error("Hiba: Helytelen email.");
         }
         if (!email.includes("@")) {
-            throw new Error("Helytelen email. Az email-nek tartalmaznia kell a @-t.");
+            throw new Error("Hiba: Az email-nek tartalmaznia kell a @-t.");
         }
 
         if (!jelszo || typeof (body.jelszo) !== "string") {
-            throw new Error("Helytelen jelszo.");
+            throw new Error("Hiba: Helytelen jelszo.");
         }
 
         const [existingUser,] = await pool.query(
@@ -86,7 +86,7 @@ app.post("/regisztracio", async (req, res) => {
         );
 
         if (existingUser.length > 0) {
-            throw new Error("Helytelen felhasználónev. A felhasználónév már foglalt.");
+            throw new Error("Hiba: A felhasználónév már foglalt.");
         }
 
         const hashedPassword = await bcrypt.hash(body.jelszo, 14);
@@ -98,7 +98,7 @@ app.post("/regisztracio", async (req, res) => {
         );
 
         if (results.affectedRows < 1) {
-            throw new Error("Helytelen. A regisztráció sikertelen.");
+            throw new Error("Hiba: A regisztráció sikertelen.");
         }
 
       
@@ -108,7 +108,7 @@ app.post("/regisztracio", async (req, res) => {
         });
     } catch (err) {
         console.log(err);
-        if (err.message.includes("Helytelen")) {
+        if (err.message.includes("Hiba")) {
             res.status(400).json({
                 error: err.message,
             });
@@ -126,19 +126,19 @@ app.post("/bejelentkezes", async (req, res) => {
         const { email, jelszo } = req.body;
 
         if (!body || typeof (body) !== "object" || Object.keys(body).length !== 2) {
-            throw new Error("Helytelen kérés törzs.");
+            throw new Error("Hiba: Helytelen kérés törzs.");
         }
 
         if (!email || typeof (body.email) !== "string") {
-            throw new Error("Helytelen email.");
+            throw new Error("Hiba: Helytelen email.");
         }
         if (!email.includes("@")) {
-            throw new Error("Helytelen email. Az email-nek tartalmaznia kell a @-t.");
+            throw new Error("Hiba: Az email-nek tartalmaznia kell a @-t.");
         }
 
         console.log(jelszo);
         if (!jelszo || typeof (body.jelszo) !== "string") {
-            throw new Error("Helytelen jelszo.");
+            throw new Error("Hiba: Helytelen jelszo.");
         }
 
         const [existingEmail,] = await pool.query(
@@ -146,13 +146,13 @@ app.post("/bejelentkezes", async (req, res) => {
         );
 
         if (existingEmail.length < 1) {
-            throw new Error("HelytelenA felhasználó nem letezik.");
+            throw new Error("Hiba: A felhasználó nem letezik.");
         }
 
         console.log(existingEmail[0].jelszo);
         const isPasswordValid= await bcrypt.compare(body.jelszo, existingEmail[0].jelszo);
         if (!isPasswordValid) {
-            throw new Error("Helytelen jelszo.");
+            throw new Error("Hiba: Helytelen jelszo.");
         }
 
         const token = jwt.sign(
@@ -166,7 +166,7 @@ app.post("/bejelentkezes", async (req, res) => {
     } catch (err) {
         console.log(err);
 
-        if (err.message.includes("Helytelen")) {
+        if (err.message.includes("Hiba")) {
             res.status(400).json({
                 error: err.message,
             });
@@ -184,14 +184,14 @@ app.get("/profile", async (req, res)=>{
         const authHeader = req.headers["authorization"];
 
         if(!authHeader){
-            throw new Error("Hitelesítés szükséges.");
+            throw new Error("Hiba: Hitelesítés szükséges.");
 
         }
 
         const token =authHeader.split(" ")[1];
 
         if(!token){
-            throw new Error("Hitelesítés szükséges.");
+            throw new Error("Hiba: Hitelesítés szükséges.");
         }
         const decodedToken= jwt.verify(token, "secret")
         const [user] = await pool.query(
@@ -207,12 +207,12 @@ app.get("/profile", async (req, res)=>{
         });
     }catch (err) {
         console.log(err);
-        if (err.message.includes("Helytelen")) {
+        if (err.message.includes("Hiba")) {
             res.status(401).json({
                 error: err.message,
             });
             return;
-        }  if (err.message.includes("Helytelen")) {
+        }  if (err.message.includes("Hiba")) {
             res.status(400).json({
                 error: err.message,
             });
@@ -223,29 +223,38 @@ app.get("/profile", async (req, res)=>{
         });
     }
 });
-
-app.put("/felhasznalomodosit/:id", async (req, res) => {
+app.put("/felhasznalomodosit", async (req, res) => {
     try {
-        const { id } = req.params;
+        const authHeader = req.headers["authorization"];
+        if (!authHeader) {
+            throw new Error("Hiba: Hitelesítés szükséges.");
+        }
+
+        const token = authHeader.split(" ")[1];
+        if (!token) {
+            throw new Error("Hiba: Hitelesítés szükséges.");
+        }
+
+        const decodedToken = jwt.verify(token, "secret");
         const { email, jelszo } = req.body;
 
         if (!email || !email.includes("@")) {
-            throw new Error("Érvénytelen email cím.");
+            throw new Error("Hiba: Érvénytelen email cím.");
         }
 
         if (!jelszo || typeof jelszo !== "string") {
-            throw new Error("Érvénytelen jelszó.");
+            throw new Error("Hiba: Érvénytelen jelszó.");
         }
 
         const hashedPassword = await bcrypt.hash(jelszo, 14);
 
         const [result] = await pool.query(
             "UPDATE felhasznalok SET email = ?, jelszo = ? WHERE felhasznalo_id = ?",
-            [email, hashedPassword, id]
+            [email, hashedPassword, decodedToken._id]
         );
 
         if (result.affectedRows === 0) {
-            throw new Error("A felhasználó nem található.");
+            throw new Error("Hiba: A felhasználó nem található.");
         }
 
         res.json({
@@ -257,8 +266,6 @@ app.put("/felhasznalomodosit/:id", async (req, res) => {
             error: "Hiba történt a felhasználó adatainak frissítése során."
         });
     }
-
-
 });
 
 app.listen(PORT, () => {

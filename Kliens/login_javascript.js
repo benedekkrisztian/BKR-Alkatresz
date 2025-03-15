@@ -100,7 +100,3 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
-function logout() {
-    localStorage.removeItem("token");
-    window.location.href = "homepage.html";
-}
