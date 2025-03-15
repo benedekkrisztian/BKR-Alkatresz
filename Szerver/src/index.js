@@ -271,8 +271,24 @@ app.put("/felhasznalomodosit", async (req, res) => {
 
 app.get("/tipus", async (req, res) => {
     try {
-        const [results,] = await pool.query("SELECT DISTINCT tipus AS name FROM tipus");
-        res.json(results);
+        const { tipus, kivitel, model } = req.query;
+        
+        if (tipus && kivitel && model) {
+            // Ha van tipus, kivitel és model paraméter, akkor keressük meg a típus azonosítót
+            const [results,] = await pool.query(
+                `SELECT t.tipus_id, COUNT(p.termek_id) as hasProducts
+                 FROM tipus t
+                 LEFT JOIN termekek p ON p.tipus_id = t.tipus_id
+                 WHERE t.tipus = ? AND t.kivitel = ? AND t.model = ?
+                 GROUP BY t.tipus_id`,
+                [tipus, kivitel, model]
+            );
+            res.json(results);
+        } else {
+            // Ha nincsenek paraméterek, akkor listázzuk az összes típust
+            const [results,] = await pool.query("SELECT DISTINCT tipus AS name FROM tipus");
+            res.json(results);
+        }
     } catch (err) {
         console.log(err);
         res.status(500).json({ "error": "Nem sikerült lekérdezni a típusokat." });
@@ -283,7 +299,7 @@ app.get("/kivitel", async (req, res) => {
     try {
         const { tipus } = req.query;
         const [results,] = await pool.query(
-            "SELECT DISTINCT kivitel AS name FROM tipus WHERE tipus = ?",
+            "SELECT DISTINCT kivitel AS name FROM tipus WHERE tipus = ? GROUP by kivitel",
             [tipus]
         );
         res.json(results);
@@ -295,10 +311,10 @@ app.get("/kivitel", async (req, res) => {
 
 app.get("/model", async (req, res) => {
     try {
-        const { tipus } = req.query;
+        const { tipus, kivitel } = req.query;
         const [results,] = await pool.query(
-            "SELECT DISTINCT model AS name FROM tipus WHERE tipus = ?",
-            [tipus]
+            "SELECT DISTINCT model AS name FROM tipus WHERE tipus = ? AND kivitel = ?",
+            [tipus, kivitel]
         );
         res.json(results);
     } catch (err) {
@@ -343,12 +359,27 @@ app.put("/clubtagsag", async (req, res) => {
 
 app.get("/termekek", async (req, res) => {
     try {
-        const { kep } = req.query;
-        const [results,] = await pool.query(
-            `SELECT termek_id, leiras, darab, alkatreszszam, ar 
-             FROM termekek 
-             WHERE kep = ?`, [kep]
-        );
+        const { kep, tipus_id } = req.query;
+        let query = `SELECT termek_id, leiras, darab, alkatreszszam, ar, kep 
+                     FROM termekek 
+                     WHERE 1=1`;
+        const params = [];
+
+        if (kep) {
+            query += " AND kep = ?";
+            params.push(kep);
+        }
+        if (tipus_id) {
+            query += " AND tipus_id = ?";
+            params.push(tipus_id);
+        }
+
+        const [results,] = await pool.query(query, params);
+
+        if (results.length === 0) {
+            res.status(404).json({ "error": "Nincs elérhető termék." });
+            return;
+        }
 
         res.json(results);
     } catch (err) {
