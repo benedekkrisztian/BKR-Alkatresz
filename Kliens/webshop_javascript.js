@@ -122,7 +122,6 @@ async function PartNumberHandleSearch() {
             return;
         }
 
-        // Átirányítás a partnumber.html oldalra a cikkszámmal
         window.location.href = `partnumber.html?cikkszam=${encodeURIComponent(cikkszam)}`;
     } catch (error) {
         console.error("Error fetching part details:", error);

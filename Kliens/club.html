@@ -44,7 +44,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="cart.html">
-                                <img src="images/cart.svg" alt="Cart" width="30" height="30">
+                                <div class="cart-icon-container">
+                                    <img src="images/cart.svg" alt="Cart" width="30" height="30">
+                                    <span id="cart-badge" class="cart-badge">0</span>
+                                </div>
                             </a>
                         </li>
                     </ul>
@@ -152,20 +155,20 @@
             <h4>Tippek</h4>
             <p>YouTube linkek:</p>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/pklUis74x9c?si=8IDxIxUrBgy41fvR"
-                    title="YouTube video player" frameborder="0"
+                <iframe src="https://www.youtube.com/embed/pklUis74x9c?si=8IDxIxUrBgy41fvR" title="YouTube video player"
+                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/RPSKOxP6XQQ?si=b3NKHnlF4MILRgAb"
-                    title="YouTube video player" frameborder="0"
+                <iframe src="https://www.youtube.com/embed/RPSKOxP6XQQ?si=b3NKHnlF4MILRgAb" title="YouTube video player"
+                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
             </div>
             <div class="video-wrapper">
-                <iframe src="https://www.youtube.com/embed/nhtWpQp5n04?si=3DvotBZikpnFLCXc"
-                    title="YouTube video player" frameborder="0"
+                <iframe src="https://www.youtube.com/embed/nhtWpQp5n04?si=3DvotBZikpnFLCXc" title="YouTube video player"
+                    frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
             </div>
@@ -178,9 +181,12 @@
                 <h3>Elérhetőségeink</h3>
                 <p>Email: info@bkralkatresz.hu</p>
                 <p>Telefon: +36 1 234 5678</p>
-                <p><img class="smalllogo" src="images/facebook.svg"><a href="https://www.facebook.com/?locale=hu_HU" target="_blank">Facebook</a></p>
-                <p><img class="smalllogo" src="images/instagram.svg"><a href="https://www.instagram.com/" target="_blank">Instagram</a></p>
-                <p><img class="smalllogo" src="images/youtube.svg"><a href="https://www.youtube.com/" target="_blank">YouTube</a></p>
+                <p><img class="smalllogo" src="images/facebook.svg"><a href="https://www.facebook.com/?locale=hu_HU"
+                        target="_blank">Facebook</a></p>
+                <p><img class="smalllogo" src="images/instagram.svg"><a href="https://www.instagram.com/"
+                        target="_blank">Instagram</a></p>
+                <p><img class="smalllogo" src="images/youtube.svg"><a href="https://www.youtube.com/"
+                        target="_blank">YouTube</a></p>
             </div>
             <div class="footer-section">
                 <h3>Üzleteink</h3>
@@ -209,6 +215,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="login_javascript.js"></script>
+    <script type="text/javascript" src="cart_badge.js"></script>
 </body>
 
 </html>

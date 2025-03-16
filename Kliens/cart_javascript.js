@@ -1,15 +1,15 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartTableBody = document.querySelector('.cart-table tbody');
     let total = 0;
 
     cartTableBody.innerHTML = '';
-    
+
     cart.forEach((item, index) => {
         const row = document.createElement('tr');
         const itemTotal = item.ar * item.quantity;
         total += itemTotal;
-        
+
         row.innerHTML = `
             <td>${item.termekId}</td>
             <td>${item.leiras}</td>
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <td>${item.ar} Ft</td>
             <td>
                 <div class="quantity-controls">
-                    <button class="btn btn-sm btn-secondary decrease-qty" data-index="${index}">-</button>
+                    <button class="btn btn-sm btn-danger decrease-qty" data-index="${index}">-</button>
                     <span class="quantity-display">${item.quantity}</span>
                     <button class="btn btn-sm btn-secondary increase-qty" data-index="${index}">+</button>
                 </div>
@@ -31,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function() {
         cartTableBody.appendChild(row);
     });
 
-    // Add total row
     const totalRow = document.createElement('tr');
     totalRow.innerHTML = `
         <td colspan="6" class="text-end"><strong>Teljes összeg:</strong></td>
@@ -39,9 +38,8 @@ document.addEventListener("DOMContentLoaded", function() {
     `;
     cartTableBody.appendChild(totalRow);
 
-    // Event listeners for quantity controls and remove buttons
     document.querySelectorAll('.decrease-qty').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const index = this.dataset.index;
             if (cart[index].quantity > 1) {
                 cart[index].quantity--;
@@ -52,7 +50,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.querySelectorAll('.increase-qty').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const index = this.dataset.index;
             cart[index].quantity++;
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -61,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.querySelectorAll('.remove-item').forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const index = this.dataset.index;
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -69,11 +67,11 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    document.getElementById('checkout-button').addEventListener('click', function() {
+    document.getElementById('checkout-button').addEventListener('click', function () {
         document.getElementById('popupbutton_cart').style.display = 'block';
     });
 
-    document.getElementById('close_cart').addEventListener('click', function() {
+    document.getElementById('close_cart').addEventListener('click', function () {
         document.getElementById('popupbutton_cart').style.display = 'none';
     });
 
@@ -150,7 +148,7 @@ async function handleCheckout() {
     try {
         const response = await fetch('http://localhost:3000/rendelesek', {
             method: 'POST',
-            headers: { 
+            headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
@@ -170,7 +168,7 @@ async function handleCheckout() {
     }
 }
 
-document.getElementById('clear_cart').addEventListener('click', function() {
+document.getElementById('clear_cart').addEventListener('click', function () {
     localStorage.removeItem('cart');
     alert('A kosár kiürült!');
     location.reload();

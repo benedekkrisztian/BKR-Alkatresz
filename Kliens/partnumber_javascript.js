@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", async function () {
     const urlParams = new URLSearchParams(window.location.search);
     const cikkszam = urlParams.get("cikkszam");
 
@@ -30,11 +30,10 @@ document.addEventListener("DOMContentLoaded", async function() {
                 <td>${item.alkatreszszam}</td>
                 <td>${item.ar} Ft</td>
                 <td>
-                    <div class="input-group" style="width: 120px">
-                        <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decrementQuantity(this)">-</button>
-                        <input type="number" class="form-control form-control-sm text-center quantity-input" 
-                            value="1" min="1" max="99" readonly>
-                        <button class="btn btn-outline-secondary btn-sm" type="button" onclick="incrementQuantity(this)">+</button>
+                    <div class="quantity-controls">
+                        <button class="btn btn-sm btn-danger" type="button" onclick="decrementQuantity(this)">-</button>
+                        <span class="quantity-display">1</span>
+                        <button class="btn btn-sm btn-secondary" type="button" onclick="incrementQuantity(this)">+</button>
                     </div>
                 </td>
                 <td>
@@ -51,25 +50,24 @@ document.addEventListener("DOMContentLoaded", async function() {
 });
 
 function decrementQuantity(button) {
-    const input = button.parentElement.querySelector('input');
-    const currentValue = parseInt(input.value);
+    const display = button.parentElement.querySelector('.quantity-display');
+    const currentValue = parseInt(display.textContent);
     if (currentValue > 1) {
-        input.value = currentValue - 1;
+        display.textContent = currentValue - 1;
     }
 }
 
 function incrementQuantity(button) {
-    const input = button.parentElement.querySelector('input');
-    const currentValue = parseInt(input.value);
-    const max = parseInt(input.max);
-    if (currentValue < max) {
-        input.value = currentValue + 1;
+    const display = button.parentElement.querySelector('.quantity-display');
+    const currentValue = parseInt(display.textContent);
+    if (currentValue < 99) {
+        display.textContent = currentValue + 1;
     }
 }
 
 function addToCart(termekId, leiras, darab, alkatreszszam, ar, button) {
     const row = button.closest('tr');
-    const quantity = parseInt(row.querySelector('.quantity-input').value);
+    const quantity = parseInt(row.querySelector('.quantity-display').textContent);
     const termek = {
         termekId,
         leiras,

@@ -882,13 +882,14 @@ main {
 .cart-buttons {
     display: flex;
     justify-content: space-between;
-    margin: 20px 0;
+    align-items: center;
 }
 
 .cart-buttons .btn {
-    padding: 10px 20px;
+    padding: 4px 15px;
     font-size: 1rem;
-    border-radius: 5px;
+    width: 180px;
+    height: 35px;
 }
 
 .cart-buttons .btn-primary {
@@ -1133,4 +1134,26 @@ main {
 
 #close_cart:hover {
     background-color: #c0392b;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    min-width: 18px;
+    text-align: center;
+}
+
+.cart-icon-container {
+    position: relative;
+    display: inline-block;
+}
+
+.mt-3.d-flex.justify-content-between {
+    padding-bottom: 20px;
 }

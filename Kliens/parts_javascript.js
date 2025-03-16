@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    // Get tipus_id from URL
     const urlParams = new URLSearchParams(window.location.search);
     const tipus_id = urlParams.get('tipus_id');
 
@@ -9,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
-    // Verify if tipus_id exists
     try {
         const response = await fetch(`http://localhost:3000/tipus/${tipus_id}`);
         const data = await response.json();
@@ -107,13 +105,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <td>${detail.leiras}</td>
                         <td>${detail.darab}</td>
                         <td>${detail.alkatreszszam}</td>
-                        <td>${detail.ar} FT</td>
+                        <td>${detail.ar} Ft</td>
                         <td>
-                            <div class="input-group" style="width: 120px">
-                                <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decrementQuantity(this)">-</button>
-                                <input type="number" class="form-control form-control-sm text-center quantity-input" 
-                                    value="1" min="1" max="99" readonly>
-                                <button class="btn btn-outline-secondary btn-sm" type="button" onclick="incrementQuantity(this)">+</button>
+                            <div class="quantity-controls">
+                                <button class="btn btn-sm btn-danger" type="button" onclick="decrementQuantity(this)">-</button>
+                                <span class="quantity-display">1</span>
+                                <button class="btn btn-sm btn-secondary" type="button" onclick="incrementQuantity(this)">+</button>
                             </div>
                         </td>
                         <td>
@@ -146,27 +143,25 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 function decrementQuantity(button) {
-    const input = button.parentElement.querySelector('input');
-    const currentValue = parseInt(input.value);
+    const display = button.parentElement.querySelector('.quantity-display');
+    const currentValue = parseInt(display.textContent);
     if (currentValue > 1) {
-        input.value = currentValue - 1;
+        display.textContent = currentValue - 1;
     }
 }
 
 function incrementQuantity(button) {
-    const input = button.parentElement.querySelector('input');
-    const currentValue = parseInt(input.value);
-    const max = parseInt(input.max);
-    if (currentValue < max) {
-        input.value = currentValue + 1;
+    const display = button.parentElement.querySelector('.quantity-display');
+    const currentValue = parseInt(display.textContent);
+    if (currentValue < 99) {
+        display.textContent = currentValue + 1;
     }
 }
 
 function addToCart(termekId, button) {
     const row = button.closest('tr');
-    const quantity = parseInt(row.querySelector('.quantity-input').value);
-    
-    // Remove maxQuantity validation since 'darab' is items per package
+    const quantity = parseInt(row.querySelector('.quantity-display').textContent);
+
     const leiras = row.cells[1].textContent;
     const darab = parseInt(row.cells[2].textContent);
     const alkatreszszam = row.cells[3].textContent;

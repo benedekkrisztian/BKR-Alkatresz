@@ -44,7 +44,10 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="cart.html">
-                                <img src="images/cart.svg" alt="Cart" width="30" height="30">
+                                <div class="cart-icon-container">
+                                    <img src="images/cart.svg" alt="Cart" width="30" height="30">
+                                    <span id="cart-badge" class="cart-badge">0</span>
+                                </div>
                             </a>
                         </li>
                     </ul>
@@ -61,7 +64,8 @@
                     <label for="search" class="form-label" id="search-label">Keresés cikkszám alapján</label>
                     <input type="text" id="search" class="form-control" placeholder="Adja meg a cikkszámot">
                     <div class="text-center mt-4">
-                        <button class="btn btn-primary" id="search-button" type="button">Alkatrészek keresése cikszám alapján</button>
+                        <button class="btn btn-primary" id="search-button" type="button">Alkatrészek keresése cikszám
+                            alapján</button>
                     </div>
                 </div>
             </div>
@@ -70,16 +74,19 @@
                 <div class="select-container col-md-4">
                     <label for="select1">Típus</label>
                     <select id="select1" class="form-select" size="3">
+                        <!-- Lekért típusok helye -->
                     </select>
                 </div>
                 <div class="select-container col-md-4">
                     <label for="select2">Kivitel</label>
                     <select id="select2" class="form-select" size="3">
+                        <!-- Lekért kivitelek helye -->
                     </select>
                 </div>
                 <div class="select-container col-md-4">
                     <label for="select3">Model</label>
                     <select id="select3" class="form-select" size="3">
+                        <!-- Lekért modellek helye -->
                     </select>
                 </div>
             </div>
@@ -95,9 +102,12 @@
                 <h3>Elérhetőségeink</h3>
                 <p>Email: info@bkralkatresz.hu</p>
                 <p>Telefon: +36 1 234 5678</p>
-                <p><img class="smalllogo" src="images/facebook.svg"><a href="https://www.facebook.com/?locale=hu_HU" target="_blank">Facebook</a></p>
-                <p><img class="smalllogo" src="images/instagram.svg"><a href="https://www.instagram.com/" target="_blank">Instagram</a></p>
-                <p><img class="smalllogo" src="images/youtube.svg"><a href="https://www.youtube.com/" target="_blank">YouTube</a></p>
+                <p><img class="smalllogo" src="images/facebook.svg"><a href="https://www.facebook.com/?locale=hu_HU"
+                        target="_blank">Facebook</a></p>
+                <p><img class="smalllogo" src="images/instagram.svg"><a href="https://www.instagram.com/"
+                        target="_blank">Instagram</a></p>
+                <p><img class="smalllogo" src="images/youtube.svg"><a href="https://www.youtube.com/"
+                        target="_blank">YouTube</a></p>
             </div>
             <div class="footer-section">
                 <h3>Üzleteink</h3>
@@ -126,6 +136,7 @@
         crossorigin="anonymous"></script>
     <script type="text/javascript" src="webshop_javascript.js"></script>
     <script type="text/javascript" src="login_javascript.js"></script>
+    <script type="text/javascript" src="cart_badge.js"></script>
 </body>
 
 </html>

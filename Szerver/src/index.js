@@ -410,7 +410,6 @@ app.post("/rendelesek", async (req, res) => {
             throw new Error("Minden mező kitöltése kötelező");
         }
 
-        // Validate phone number format
         if (!/^\d{10,11}$/.test(telefonszam)) {
             throw new Error("Érvénytelen telefonszám formátum");
         }
@@ -442,4 +441,3 @@ app.post("/rendelesek", async (req, res) => {
 app.listen(PORT, () => {
     console.log(`A szerver elindult localhost:${PORT} porton.`);
 });
-
