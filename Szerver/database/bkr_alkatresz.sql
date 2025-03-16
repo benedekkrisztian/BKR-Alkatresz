@@ -383,11 +383,7 @@ INSERT INTO `termekek` (`termek_id`, `leiras`, `darab`, `alkatreszszam`, `ar`, `
 (310, 'Tömítés (azbesztmentes)', 1, 18301728208, 6181, 73, 29),
 (311, 'Hatszögletű anya', 4, 18301737774, 578, 73, 29),
 (312, 'Szervíz készlet vizsgálathoz II', 1, 88002157529, 5000, 73, 30),
-(313, 'Szervíz készlet vizsgálathoz I / Olajszervíz', 1, 88002157522, 5000, 73, 31),
-(314, 'Törlőlapát STARK SKWIB-0940064', 1, 4059191307012, 3283, NULL, 32),
-(315, 'Törlőlapát BOSCH Aerotwin Retro AR 531 S', 2, 3397118901, 10071, NULL, 33),
-(316, '2204218 TotalEnergies Quartz INEO Long Life 5W-30 5L', 1, 2204218, 20293, NULL, 34),
-(317, '109471 MOTUL 8100 X-CLEAN EFE 5W-30 5L', 1, 109471, 21531, NULL, 35);
+(313, 'Szervíz készlet vizsgálathoz I / Olajszervíz', 1, 88002157522, 5000, 73, 31);
 
 -- --------------------------------------------------------
 
