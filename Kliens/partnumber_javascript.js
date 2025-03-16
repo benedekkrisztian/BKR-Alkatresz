@@ -29,6 +29,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 <td>${item.darab}</td>
                 <td>${item.alkatreszszam}</td>
                 <td>${item.ar} Ft</td>
+         
             `;
             partDetailsTable.appendChild(row);
         });
