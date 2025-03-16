@@ -5,23 +5,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const partsLink = document.getElementById('partsLink');
     const nameInput = document.getElementById('name1');
 
-    // Utolsó mentett autó betöltése
     const loadLastSavedCar = () => {
         const savedCars = JSON.parse(localStorage.getItem('garage')) || [];
         if (savedCars.length > 0) {
             const lastCar = savedCars[savedCars.length - 1];
             nameInput.value = lastCar.name;
-            
-            // Típus beállítása és kivitelek betöltése
+
             typeSelect.value = lastCar.type;
             typeSelect.dispatchEvent(new Event('change'));
 
-            // Kivárjuk a kivitelek betöltését
             setTimeout(() => {
                 bodytypeSelect.value = lastCar.bodytype;
                 bodytypeSelect.dispatchEvent(new Event('change'));
 
-                // Kivárjuk a modellek betöltését
                 setTimeout(() => {
                     modelSelect.value = lastCar.model;
                 }, 100);
@@ -29,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Betöltjük az utolsó mentett autót az oldal betöltésekor
     fetch('http://localhost:3000/tipus')
         .then(response => response.json())
         .then(data => {
@@ -39,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 option.textContent = item.name;
                 typeSelect.appendChild(option);
             });
-            loadLastSavedCar(); // Típusok betöltése után betöltjük az autót
+            loadLastSavedCar();
         });
 
     typeSelect.addEventListener('change', () => {
@@ -82,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     partsLink.addEventListener('click', async (e) => {
         e.preventDefault();
-        
+
         if (!typeSelect.value || !bodytypeSelect.value || !modelSelect.value) {
             alert('Kérjük válasszon ki minden szükséges adatot!');
             return;
@@ -91,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch(`http://localhost:3000/tipus?tipus=${typeSelect.value}&kivitel=${bodytypeSelect.value}&model=${modelSelect.value}`);
             const data = await response.json();
-            
+
             if (data && data.length > 0) {
                 if (data[0].hasProducts > 0) {
                     window.location.href = `parts.html?tipus_id=${data[0].tipus_id}`;
@@ -109,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
+
         const carData = {
             name: nameInput.value,
             type: typeSelect.value,
@@ -128,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             savedCars.push(carData);
         }
-        
+
         localStorage.setItem('garage', JSON.stringify(savedCars));
         alert('Autó sikeresen mentve a garázsba!');
     });

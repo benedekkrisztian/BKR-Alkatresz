@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    // Get tipus_id from URL
     const urlParams = new URLSearchParams(window.location.search);
     const tipus_id = urlParams.get('tipus_id');
 
@@ -9,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
-    // Verify if tipus_id exists
     try {
         const response = await fetch(`http://localhost:3000/tipus/${tipus_id}`);
         const data = await response.json();
@@ -35,6 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         selectedPartSection.insertBefore(partName, selectedPartSection.firstChild);
     }
     const backButton = document.getElementById("back-button");
+    backButton.style.display = "none";
     const partDetailsBody = document.getElementById("part-details-body");
     const parts = [
         { filename: "316i_1.png", name: "Motorblokk rögzítő alkatrészek" },
@@ -95,6 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 partsGallery.style.display = "none";
                 selectedPartSection.style.display = "flex";
+                backButton.style.display = "block"; 
                 selectedImage.src = img.src;
                 selectedImage.alt = part.name;
                 partName.textContent = part.name;
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         <td>${detail.leiras}</td>
                         <td>${detail.darab}</td>
                         <td>${detail.alkatreszszam}</td>
-                        <td>${detail.ar} FT</td>
+                        <td>${detail.ar} Ft</td>
                         <td>
                             <div class="input-group" style="width: 120px">
                                 <button class="btn btn-outline-secondary btn-sm" type="button" onclick="decrementQuantity(this)">-</button>
@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     backButton.onclick = () => {
         partsGallery.style.display = "flex";
         selectedPartSection.style.display = "none";
+        backButton.style.display = "none";
     };
 });
 
@@ -172,6 +173,5 @@ function addToCart(termekId, button) {
         return;
     }
 
-    // TODO: Implement cart functionality
     alert(`Termék (${termekId}) hozzáadva a kosárhoz: ${quantity} db`);
 }

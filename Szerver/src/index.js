@@ -251,6 +251,24 @@ app.get("/tipus", async (req, res) => {
     }
 });
 
+app.get("/tipus/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const [results,] = await pool.query(
+            `SELECT tipus_id, tipus, kivitel, model, motorkod, gyartasiciklus 
+             FROM tipus 
+             WHERE tipus_id = ?`, [id]
+        );
+
+        res.json(results);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({
+            "error": "Nem sikerült lekérdezni a típust."
+        });
+    }
+});
+
 app.get("/kivitel", async (req, res) => {
     try {
         const { tipus } = req.query;

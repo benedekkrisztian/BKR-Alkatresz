@@ -547,7 +547,9 @@ main {
 
 #club_videos {
     text-align: center;
-    padding-bottom: 15px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 #join_club {
@@ -932,6 +934,9 @@ main {
     padding: 20px;
     border-radius: 5px;
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 #part-name {
@@ -951,10 +956,9 @@ main {
 }
 
 #back-button {
-    width: fit-content;
-    display: inline-block;
-    margin-top: 10px;
     width: 90%;
+    margin: 20px auto;
+    padding: 10px 0;
 }
 
 #part-details {
@@ -972,6 +976,7 @@ main {
 #part-details td {
     vertical-align: middle;
     text-align: center;
+    padding: 10px;
 }
 
 .quantity-input {
@@ -980,12 +985,15 @@ main {
     padding: 2px;
     border: 1px solid #ced4da;
     margin: 0;
+    display: inline-block;
 }
 
 .input-group {
     flex-wrap: nowrap;
     justify-content: center;
     margin: 0 auto;
+    display: inline-flex;
+    width: auto;
 }
 
 .input-group .btn {
@@ -1020,4 +1028,21 @@ main {
 .input-group .btn:hover {
     background-color: #0166B1;
     color: white;
+}
+
+.video-wrapper {
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+}
+
+@media (max-width: 768px) {
+    .video-wrapper {
+        width: 100%;
+        margin: 10px 0;
+    }
+    
+    #club_videos {
+        justify-content: center;
+    }
 }
