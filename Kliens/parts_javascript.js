@@ -165,12 +165,31 @@ function incrementQuantity(button) {
 function addToCart(termekId, button) {
     const row = button.closest('tr');
     const quantity = parseInt(row.querySelector('.quantity-input').value);
-    const maxQuantity = parseInt(row.querySelector('.quantity-input').max);
+    
+    // Remove maxQuantity validation since 'darab' is items per package
+    const leiras = row.cells[1].textContent;
+    const darab = parseInt(row.cells[2].textContent);
+    const alkatreszszam = row.cells[3].textContent;
+    const ar = parseInt(row.cells[4].textContent);
 
-    if (quantity > maxQuantity) {
-        alert('Nincs elég készleten!');
-        return;
+    const termek = {
+        termekId,
+        leiras,
+        darab,
+        alkatreszszam,
+        ar,
+        quantity
+    };
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItemIndex = cart.findIndex(item => item.termekId === termekId);
+
+    if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += quantity;
+    } else {
+        cart.push(termek);
     }
 
+    localStorage.setItem('cart', JSON.stringify(cart));
     alert(`Termék (${termekId}) hozzáadva a kosárhoz: ${quantity} db`);
 }

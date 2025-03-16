@@ -1,3 +1,6 @@
+CREATE DATABASE IF NOT EXISTS `bkr_alkatresz`;
+USE `bkr_alkatresz`;
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
