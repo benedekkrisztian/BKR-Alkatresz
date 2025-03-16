@@ -420,24 +420,10 @@ app.post("/rendelesek", async (req, res) => {
         }
 
         for (const item of cart) {
-            const [stockCheck] = await connection.query(
-                "SELECT darab FROM termekek WHERE termek_id = ?",
-                [item.termekId]
-            );
-
-            if (stockCheck.length === 0 || stockCheck[0].darab < item.quantity) {
-                throw new Error(`Nincs elegendő készlet: ${item.leiras}`);
-            }
-
             await connection.query(
                 `INSERT INTO rendelesek (felhasznalo_id, termek_id, mennyiseg, iranyitoszam, varos, utca, telefonszam, email) 
                  VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
                 [decodedToken._id, item.termekId, item.quantity, iranyitoszam, varos, utca, telefonszam, email]
-            );
-
-            await connection.query(
-                "UPDATE termekek SET darab = darab - ? WHERE termek_id = ?",
-                [item.quantity, item.termekId]
             );
         }
 
