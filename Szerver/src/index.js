@@ -382,42 +382,74 @@ app.get("/termekek/cikkszam/:cikkszam", async (req, res) => {
     }
 });
 
-
 app.post("/rendelesek", async (req, res) => {
+    const authHeader = req.headers["authorization"];
+    if (!authHeader) {
+        res.status(401).json({ error: "Hiba: Hitelesítés szükséges." });
+        return;
+    }
+
+    const token = authHeader.split(" ")[1];
+    if (!token) {
+        res.status(401).json({ error: "Hiba: Hitelesítés szükséges." });
+        return;
+    }
+
+    const connection = await pool.getConnection();
+    await connection.beginTransaction();
+
     try {
+        const decodedToken = jwt.verify(token, "secret");
         const { cart, iranyitoszam, varos, utca, telefonszam, email } = req.body;
-        
+
         if (!cart || !Array.isArray(cart) || cart.length === 0) {
-            throw new Error("Hiba: Üres kosár.");
+            throw new Error("Érvénytelen kosár tartalom");
         }
-        
-        const connection = await pool.getConnection();
-        await connection.beginTransaction();
 
-        try {
-            for (const item of cart) {
-                const [orderResult] = await connection.query(
-                    `INSERT INTO rendelesek (felhasznalo_id, termek_id, iranyitoszam, varos, utca, telefonszam, email) 
-                     VALUES (?, ?, ?, ?, ?, ?, ?)`,
-                    [null, item.termekId, iranyitoszam, varos, utca, telefonszam, email]
-                );
+        if (!iranyitoszam || !varos || !utca || !telefonszam || !email) {
+            throw new Error("Minden mező kitöltése kötelező");
+        }
 
-                if (orderResult.affectedRows < 1) {
-                    throw new Error("Hiba: A rendelés sikertelen.");
-                }
+        // Validate phone number format
+        if (!/^\d{10,11}$/.test(telefonszam)) {
+            throw new Error("Érvénytelen telefonszám formátum");
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            throw new Error("Érvénytelen email formátum");
+        }
+
+        for (const item of cart) {
+            const [stockCheck] = await connection.query(
+                "SELECT darab FROM termekek WHERE termek_id = ?",
+                [item.termekId]
+            );
+
+            if (stockCheck.length === 0 || stockCheck[0].darab < item.quantity) {
+                throw new Error(`Nincs elegendő készlet: ${item.leiras}`);
             }
-            
-            await connection.commit();
-            res.status(201).json({ message: "Rendelés sikeresen leadva." });
-        } catch (error) {
-            await connection.rollback();
-            throw error;
-        } finally {
-            connection.release();
+
+            await connection.query(
+                `INSERT INTO rendelesek (felhasznalo_id, termek_id, mennyiseg, iranyitoszam, varos, utca, telefonszam, email) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+                [decodedToken._id, item.termekId, item.quantity, iranyitoszam, varos, utca, telefonszam, email]
+            );
+
+            await connection.query(
+                "UPDATE termekek SET darab = darab - ? WHERE termek_id = ?",
+                [item.quantity, item.termekId]
+            );
         }
+
+        await connection.commit();
+        res.status(201).json({ message: "Rendelés sikeresen feldolgozva" });
+
     } catch (error) {
-        console.error("Hiba történt a rendelés során:", error);
-        res.status(500).json({ error: "Hiba történt a rendelés során." });
+        await connection.rollback();
+        console.error(error);
+        res.status(400).json({ error: error.message });
+    } finally {
+        connection.release();
     }
 });
 

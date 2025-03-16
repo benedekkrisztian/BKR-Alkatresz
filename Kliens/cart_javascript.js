@@ -1,18 +1,72 @@
 document.addEventListener("DOMContentLoaded", function() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartTableBody = document.querySelector('.cart-table tbody');
+    let total = 0;
 
-    cart.forEach(item => {
+    cartTableBody.innerHTML = '';
+    
+    cart.forEach((item, index) => {
         const row = document.createElement('tr');
+        const itemTotal = item.ar * item.quantity;
+        total += itemTotal;
+        
         row.innerHTML = `
             <td>${item.termekId}</td>
             <td>${item.leiras}</td>
             <td>${item.darab}</td>
             <td>${item.alkatreszszam}</td>
             <td>${item.ar} Ft</td>
-            <td>${item.quantity}</td>
+            <td>
+                <div class="quantity-controls">
+                    <button class="btn btn-sm btn-secondary decrease-qty" data-index="${index}">-</button>
+                    <span class="quantity-display">${item.quantity}</span>
+                    <button class="btn btn-sm btn-secondary increase-qty" data-index="${index}">+</button>
+                </div>
+            </td>
+            <td>${itemTotal} Ft</td>
+            <td>
+                <button class="btn btn-danger btn-sm remove-item" data-index="${index}">Törlés</button>
+            </td>
         `;
         cartTableBody.appendChild(row);
+    });
+
+    // Add total row
+    const totalRow = document.createElement('tr');
+    totalRow.innerHTML = `
+        <td colspan="6" class="text-end"><strong>Teljes összeg:</strong></td>
+        <td colspan="2"><strong>${total} Ft</strong></td>
+    `;
+    cartTableBody.appendChild(totalRow);
+
+    // Event listeners for quantity controls and remove buttons
+    document.querySelectorAll('.decrease-qty').forEach(button => {
+        button.addEventListener('click', function() {
+            const index = this.dataset.index;
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                location.reload();
+            }
+        });
+    });
+
+    document.querySelectorAll('.increase-qty').forEach(button => {
+        button.addEventListener('click', function() {
+            const index = this.dataset.index;
+            cart[index].quantity++;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            location.reload();
+        });
+    });
+
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', function() {
+            const index = this.dataset.index;
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            location.reload();
+        });
     });
 
     document.getElementById('checkout-button').addEventListener('click', function() {
@@ -27,8 +81,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 async function handleCheckout() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('A rendeléshez be kell jelentkezni!');
+        window.location.href = 'bejelentkezes.html';
+        return;
+    }
 
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
     if (cart.length === 0) {
         alert('A kosár üres!');
         return;
@@ -90,7 +150,10 @@ async function handleCheckout() {
     try {
         const response = await fetch('http://localhost:3000/rendelesek', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
             body: JSON.stringify({ cart, iranyitoszam: postalCode, varos: city, utca: street, telefonszam: phoneNumber, email })
         });
 
