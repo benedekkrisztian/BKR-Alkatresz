@@ -382,6 +382,46 @@ app.get("/termekek/cikkszam/:cikkszam", async (req, res) => {
     }
 });
 
+
+app.post("/rendelesek", async (req, res) => {
+    try {
+        const { cart, iranyitoszam, varos, utca, telefonszam, email } = req.body;
+        
+        if (!cart || !Array.isArray(cart) || cart.length === 0) {
+            throw new Error("Hiba: Üres kosár.");
+        }
+        
+        const connection = await pool.getConnection();
+        await connection.beginTransaction();
+
+        try {
+            for (const item of cart) {
+                const [orderResult] = await connection.query(
+                    `INSERT INTO rendelesek (felhasznalo_id, termek_id, iranyitoszam, varos, utca, telefonszam, email) 
+                     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                    [null, item.termekId, iranyitoszam, varos, utca, telefonszam, email]
+                );
+
+                if (orderResult.affectedRows < 1) {
+                    throw new Error("Hiba: A rendelés sikertelen.");
+                }
+            }
+            
+            await connection.commit();
+            res.status(201).json({ message: "Rendelés sikeresen leadva." });
+        } catch (error) {
+            await connection.rollback();
+            throw error;
+        } finally {
+            connection.release();
+        }
+    } catch (error) {
+        console.error("Hiba történt a rendelés során:", error);
+        res.status(500).json({ error: "Hiba történt a rendelés során." });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`A szerver elindult localhost:${PORT} porton.`);
 });
+

@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     </div>
                 </td>
                 <td>
-                    <button class="btn btn-primary btn-sm" onclick="addToCart(${item.termek_id}, this)">Kosárba</button>
+                    <button class="btn btn-primary btn-sm" onclick="addToCart(${item.termek_id}, '${item.leiras}', ${item.darab}, '${item.alkatreszszam}', ${item.ar}, this)">Kosárba</button>
                 </td>
             `;
             partDetailsTable.appendChild(row);
@@ -67,15 +67,27 @@ function incrementQuantity(button) {
     }
 }
 
-function addToCart(termekId, button) {
+function addToCart(termekId, leiras, darab, alkatreszszam, ar, button) {
     const row = button.closest('tr');
     const quantity = parseInt(row.querySelector('.quantity-input').value);
-    const maxQuantity = parseInt(row.querySelector('.quantity-input').max);
-    
-    if (quantity > maxQuantity) {
-        alert('Nincs elég készleten!');
-        return;
+    const termek = {
+        termekId,
+        leiras,
+        darab,
+        alkatreszszam,
+        ar,
+        quantity
+    };
+
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItemIndex = cart.findIndex(item => item.termekId === termekId);
+
+    if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += quantity;
+    } else {
+        cart.push(termek);
     }
 
+    localStorage.setItem('cart', JSON.stringify(cart));
     alert(`Termék (${termekId}) hozzáadva a kosárhoz: ${quantity} db`);
 }
