@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     </div>
                 </td>
                 <td>
-                    <button class="btn btn-primary btn-sm" onclick="addToCart(${item.termek_id}, '${item.leiras}', ${item.darab}, '${item.alkatreszszam}', ${item.ar}, this)">Kosárba</button>
+                    <button class="btn btn-primary btn-sm" onclick="addToCart(${item.termek_id}, this)">Kosárba</button>
                 </td>
             `;
             partDetailsTable.appendChild(row);
@@ -65,9 +65,15 @@ function incrementQuantity(button) {
     }
 }
 
-function addToCart(termekId, leiras, darab, alkatreszszam, ar, button) {
+function addToCart(termekId, button) {
     const row = button.closest('tr');
     const quantity = parseInt(row.querySelector('.quantity-display').textContent);
+
+    const leiras = row.cells[1].textContent;
+    const darab = parseInt(row.cells[2].textContent);
+    const alkatreszszam = row.cells[3].textContent;
+    const ar = parseInt(row.cells[4].textContent);
+
     const termek = {
         termekId,
         leiras,
