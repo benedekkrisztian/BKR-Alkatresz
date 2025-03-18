@@ -3,6 +3,7 @@ async function login(event) {
 
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
+    const loginButton = document.getElementById("login_button");
 
     if (!email || !password) {
         alert("Minden mezőt ki kell tölteni!");
@@ -10,9 +11,12 @@ async function login(event) {
     }
 
     if (!email.includes("@")) {
-        alert("Érvénytelen email cím!");
+        alert("Érvénytelen e-mail cím!");
         return;
     }
+
+    loginButton.innerHTML = "Kérjük várjon...";
+    loginButton.disabled = true;
 
     try {
         const response = await fetch("http://localhost:3000/bejelentkezes", {
@@ -30,13 +34,17 @@ async function login(event) {
             alert("Sikeres bejelentkezés!");
             window.location.href = "homepage.html";
         } else {
-            alert("Hiba történt: " + result.error);
+            alert(result.error);
         }
     } catch (error) {
         console.error("Hálózati hiba:", error);
         alert("Nem sikerült csatlakozni a szerverhez.");
+    } finally {
+        loginButton.innerHTML = "Bejelentkezés";
+        loginButton.disabled = false;
     }
 }
+
 
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("login_panel");

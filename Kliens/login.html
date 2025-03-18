@@ -61,7 +61,7 @@
         <div class="d-flex justify-content-center align-items-center ">
             <div id="login">
                 <div class="card-body">
-                    <form id="login_panel" onsubmit="login(event)">
+                    <form id="login_panel">
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" required>
@@ -70,7 +70,7 @@
                             <label for="password">Jelszó</label>
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100">Bejelentkezés</button>
+                        <button type="submit" class="btn btn-primary w-100" id="login_button">Bejelentkezés</button>
                         <p style="text-align:center; padding-top: 5px;">Még nem regisztráltál? <a
                                 href="registration.html">Regisztrálj!</a> </p>
                     </form>

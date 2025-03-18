@@ -102,7 +102,7 @@ async function handleCheckout() {
     const phoneNumber = document.getElementById("payment_details_8_cart").value.trim();
     const email = document.getElementById("payment_details_9_cart").value.trim();
 
-    const namePattern = /^[a-zA-Z\s]+$/;
+    const namePattern = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]+$/;
     const numberPattern = /^\d{16}$/;
     const datePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const cvvPattern = /^\d{3}$/;

@@ -30,14 +30,14 @@ app.post("/regisztracio", async (req, res) => {
         }
 
         if (!email || typeof (body.email) !== "string") {
-            throw new Error("Hiba: Helytelen email.");
+            throw new Error("Hiba: Helytelen e-mail cím.");
         }
         if (!email.includes("@")) {
-            throw new Error("Hiba: Az email-nek tartalmaznia kell a @-t.");
+            throw new Error("Hiba: Az e-mail címnek tartalmaznia kell a @-t.");
         }
 
         if (!jelszo || typeof (body.jelszo) !== "string") {
-            throw new Error("Hiba: Helytelen jelszo.");
+            throw new Error("Hiba: Helytelen jelszó.");
         }
 
         const [existingUser,] = await pool.query(
@@ -88,15 +88,15 @@ app.post("/bejelentkezes", async (req, res) => {
         }
 
         if (!email || typeof (body.email) !== "string") {
-            throw new Error("Hiba: Helytelen email.");
+            throw new Error("Hiba: Helytelen e-mail cím.");
         }
         if (!email.includes("@")) {
-            throw new Error("Hiba: Az email-nek tartalmaznia kell a @-t.");
+            throw new Error("Hiba: Az e-mail címnek tartalmaznia kell a @-t.");
         }
 
         console.log(jelszo);
         if (!jelszo || typeof (body.jelszo) !== "string") {
-            throw new Error("Hiba: Helytelen jelszo.");
+            throw new Error("Hiba: Helytelen jelszó.");
         }
 
         const [existingEmail,] = await pool.query(
@@ -104,13 +104,13 @@ app.post("/bejelentkezes", async (req, res) => {
         );
 
         if (existingEmail.length < 1) {
-            throw new Error("Hiba: A felhasználó nem letezik.");
+            throw new Error("Hiba: A felhasználó nem létezik.");
         }
 
         console.log(existingEmail[0].jelszo);
         const isPasswordValid = await bcrypt.compare(body.jelszo, existingEmail[0].jelszo);
         if (!isPasswordValid) {
-            throw new Error("Hiba: Helytelen jelszo.");
+            throw new Error("Hiba: Helytelen jelszó.");
         }
 
         const token = jwt.sign(
@@ -198,7 +198,7 @@ app.put("/felhasznalomodosit", async (req, res) => {
         const { email, jelszo } = req.body;
 
         if (!email || !email.includes("@")) {
-            throw new Error("Hiba: Érvénytelen email cím.");
+            throw new Error("Hiba: Érvénytelen e-mail cím.");
         }
 
         if (!jelszo || typeof jelszo !== "string") {
@@ -403,19 +403,19 @@ app.post("/rendelesek", async (req, res) => {
         const { cart, iranyitoszam, varos, utca, telefonszam, email } = req.body;
 
         if (!cart || !Array.isArray(cart) || cart.length === 0) {
-            throw new Error("Érvénytelen kosár tartalom");
+            throw new Error("Érvénytelen kosár tartalom!");
         }
 
         if (!iranyitoszam || !varos || !utca || !telefonszam || !email) {
-            throw new Error("Minden mező kitöltése kötelező");
+            throw new Error("Minden mező kitöltése kötelező!");
         }
 
         if (!/^\d{10,11}$/.test(telefonszam)) {
-            throw new Error("Érvénytelen telefonszám formátum");
+            throw new Error("Érvénytelen telefonszám formátum!");
         }
 
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            throw new Error("Érvénytelen email formátum");
+            throw new Error("Érvénytelen e-mail cím formátum!");
         }
 
         for (const item of cart) {
@@ -427,7 +427,7 @@ app.post("/rendelesek", async (req, res) => {
         }
 
         await connection.commit();
-        res.status(201).json({ message: "Rendelés sikeresen feldolgozva" });
+        res.status(201).json({ message: "Rendelés sikeresen feldolgozva." });
 
     } catch (error) {
         await connection.rollback();

@@ -25,7 +25,7 @@ document.getElementById("update-form").addEventListener("submit", async function
         if (response.ok) {
             alert("A felhasználó adatai sikeresen frissítve.");
         } else {
-            alert(`Hiba: ${data.error}`);
+            alert(`A felhasználói adatok módosításához mindkét adat frissítésére szükség van.`);
         }
     } catch (error) {
         console.error("Hiba történt a kérés során:", error);
