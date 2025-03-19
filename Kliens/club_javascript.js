@@ -26,7 +26,7 @@ payButton.addEventListener("click", async function () {
     const cvv = document.getElementById("payment_details_4_club").value.trim();
     const club_videos = document.getElementById('club_videos');
 
-    const namePattern = /^[a-zA-Z\s]+$/;
+    const namePattern = /^[a-zA-ZáéíóöőúüűÁÉÍÓÖŐÚÜŰ\s]+$/;
     const numberPattern = /^\d{16}$/;
     const datePattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const cvvPattern = /^\d{3}$/;

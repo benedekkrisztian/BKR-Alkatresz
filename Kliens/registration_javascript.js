@@ -40,7 +40,7 @@ async function save(event) {
         if (response.ok) {
             alert("Sikeres regisztráció!");
             document.getElementById("registration_panel").reset();
-            window.location.href = clubMember ? "club.html" : "homepage.html";
+            window.location.href = clubMember ? "club.html" : "login.html";
         } else {
             alert("Hiba történt: " + result.error);
         }

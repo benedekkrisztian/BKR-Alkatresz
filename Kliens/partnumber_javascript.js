@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             return;
         }
 
-        const partDetailsTable = document.getElementById("part-details");
+        const partDetailsTable = document.getElementById("part-details-body");
         termek.forEach(item => {
             const row = document.createElement("tr");
             row.innerHTML = `
